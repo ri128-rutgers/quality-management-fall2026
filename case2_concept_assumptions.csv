@@ -1,0 +1,19 @@
+parameter,value,basis
+new_program_sites,2,Two plants; scenario.
+new_program_lines,14,Packaging lines; scenario.
+new_program_sensors_planned,320,"~23 per line: vibration, temperature, current; concept description."
+new_program_enterprise_integrations,3,"CMMS, historian, ERP."
+new_program_ml_models,2,Anomaly detection + remaining-useful-life.
+new_program_data_readiness_1to5,2,Historian exists; CMMS records inconsistent.
+new_program_vendor_type,platform,Preferred approach.
+horizon_years,10,Analysis horizon.
+MARR_real,0.08,Corporate real hurdle rate; scenario.
+accelerator_or_edge_refresh_years,4,Edge gateway refresh cycle.
+retraining_cadence_months,6,Per vendor guidance for seasonal products.
+current_unplanned_downtime_hours_per_line_year,96,"Maintenance history average, below."
+downtime_cost_per_hour_usd,4100,Lost contribution + labor; finance; scenario.
+expected_downtime_reduction,20% to 35%,Range from vendor references and literature; choose and justify.
+sensor_unit_cost_usd,395,Budgetary quote.
+edge_gateway_cost_per_line_usd,2750,Budgetary quote.
+loaded_person_month_usd_2026,16200,Internal rate.
+general_inflation,0.025,For nominal analysis.

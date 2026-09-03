@@ -1,0 +1,4 @@
+true_state,pilot_says_high,pilot_says_medium,pilot_says_low
+high,0.75,0.2,0.05
+medium,0.2,0.65,0.15
+low,0.05,0.25,0.7

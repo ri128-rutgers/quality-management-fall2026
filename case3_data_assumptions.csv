@@ -1,0 +1,30 @@
+parameter,value,basis
+messages_year1,2100000,Central scheduling desk volume; scenario.
+message_growth_per_year,0.09,Scenario.
+horizon_years,5,
+MARR,0.07,Health-system hurdle rate; scenario.
+avg_input_tokens_per_message,1150,"Patient message + rules context (measured on pilot sample, below)."
+avg_output_tokens_per_message,210,Draft reply length.
+rag_added_input_tokens,900,Retrieved passages appended (Alternative B).
+quality_floor_agent_approval_rate,0.86,Minimum acceptable share of drafts approved with no or minor edits.
+alt_A_expected_approval_rate,0.84 to 0.88,Prompt-only hosted model; pilot sample.
+alt_B_expected_approval_rate,0.89 to 0.92,RAG; pilot sample.
+alt_C_expected_approval_rate,0.90 to 0.93,PEFT fine-tune of mid-size open model.
+alt_D_small_model_approval_rate,0.80 to 0.85,Distilled small model alone; router escalates to hosted model.
+alt_D_escalation_share,0.25 to 0.40,Share of messages routed to the large model.
+alt_D_cache_hit_rate,0.12,Semantic cache on near-duplicate messages.
+alt_C_finetune_data_labeling_usd,140000,"18,000 labeled examples at clinical-ops labeling rates."
+alt_C_finetune_compute_accelerator_hours,260,PEFT run; scenario.
+alt_C_eval_harness_build_usd,60000,Evaluation suite build (all alternatives share ~half of this).
+alt_D_distillation_engineering_usd,210000,Distillation + router + cache build.
+evaluation_recurring_usd_per_year,45000,Quarterly evaluation and red-teaming.
+mlops_staff_fte,0.5 (A/B) / 1.5 (C/D),Ongoing engineering.
+fte_loaded_usd,195000,"Health-system IT engineer, 2026."
+agent_time_saved_min_per_message,1.8,From pilot; drives benefit but cost is the case focus.
+agent_loaded_hourly_usd,41.0,Scheduling agent.
+alt_C_inference_accelerator_hours_per_1M_messages,95,Throughput on rented accelerator; scenario.
+alt_E_tool_calls_per_message_mean,3.4,"Agentic option: availability lookup, slot proposal, confirmation."
+alt_E_retry_rate,0.11,Share of tool calls retried.
+alt_E_human_checkpoint_seconds,25,Review before an action commits.
+model_economic_life_years,1 to 3,Choose and justify (drift + competitive obsolescence).
+PRICES,NOT PROVIDED,"Per-token API prices, accelerator rental $/hr, committed-use discounts: source current published prices and cite URL + date."

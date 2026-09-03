@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Syllabus — Quality Management 16:540:580:90</title><meta name="description" content="16:540:580:90 Quality Management — Rutgers Industrial &amp; Systems Engineering graduate course, Fall 2026, asynchronous with an optional weekly live session. Engineering economy foundations extended to complex, software-intensive, cloud, data, and machine-learning systems, with machine learning used both as a cost-estimating tool and as the object of analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>/* Palette: white page, deep slate text, Rutgers scarlet as the single accent. */
+:root {
+  --paper: #ffffff;
+  --ink: #1f2a3a;
+  --ink-soft: #5d6470;
+  --rule: #e3e6ea;
+  --wash: #f6f7f9;
+  --scarlet: #cc0033;          /* Rutgers scarlet */
+  --scarlet-deep: #99001f;
+  --measure: 68ch;
+  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 17px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; font-family: var(--font); color: var(--ink); background: var(--paper);
+  line-height: 1.55; font-variant-numeric: tabular-nums;
+}
+a { color: var(--scarlet-deep); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--scarlet); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--scarlet); outline-offset: 2px; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: .5rem 1rem; }
+.skip:focus { left: 0; z-index: 10; }
+
+.wrap { width: min(100% - 2.5rem, 1100px); margin-inline: auto; }
+
+h1, h2, h3, h4 { line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 .5em; }
+h1 { font-size: 2.2rem; margin-top: 1.2rem; }
+h2 { font-size: 1.45rem; margin-top: 2rem; }
+h3 { font-size: 1.12rem; margin-top: 1.5rem; }
+p, ul, ol { max-width: var(--measure); }
+.lede { font-size: 1.15rem; color: var(--ink-soft); }
+.muted { color: var(--ink-soft); }
+ul.plain, ol.plain { padding-left: 1.1rem; }
+
+/* header */
+.site-header { border-bottom: 1px solid var(--rule); }
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; padding: .9rem 0; }
+.brand { text-decoration: none; color: var(--ink); display: flex; flex-direction: column; }
+.brand-course { color: var(--scarlet); font-weight: 600; font-size: .95rem; }
+.brand-title { font-weight: 500; font-size: 1.05rem; }
+.site-nav { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+.site-nav a { text-decoration: none; color: var(--ink); padding: .25rem 0; border-bottom: 2px solid transparent; }
+.site-nav a[aria-current="page"], .site-nav a:hover { border-bottom-color: var(--scarlet); }
+
+/* home */
+.hero { padding: 3rem 0 2rem; border-bottom: 1px solid var(--rule); }
+.hero h1 { font-size: clamp(2rem, 4vw, 3rem); max-width: 22ch; }
+.hero .lede { max-width: 60ch; }
+.hero-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem 2rem; margin-top: 1.5rem; padding: 0; list-style: none; max-width: none; }
+.hero-facts li { border-top: 2px solid var(--ink); padding-top: .5rem; }
+.hero-facts li span { display: block; color: var(--ink-soft); font-size: .9rem; }
+
+/* semester timeline — the one bold element */
+.timeline { margin: 2.5rem 0; }
+.timeline-track {
+  display: grid; grid-template-columns: repeat(15, 1fr); gap: 3px; margin-top: .75rem;
+  list-style: none; padding: 0; max-width: none;
+}
+.timeline-track li a {
+  display: block; text-decoration: none; color: var(--ink); background: var(--wash);
+  border-top: 5px solid var(--rule); padding: .45rem .3rem .55rem; min-height: 5.2rem;
+  transition: background .15s;
+}
+.timeline-track li a:hover { background: #eceef1; }
+.timeline-track .wk { font-weight: 600; font-size: .95rem; }
+.timeline-track .dt { display: block; font-size: .78rem; color: var(--ink-soft); }
+.timeline-track .tt { display: block; font-size: .78rem; margin-top: .25rem; line-height: 1.25; }
+.timeline-track li.past a { border-top-color: var(--ink-soft); }
+.timeline-track li.now a { border-top-color: var(--scarlet); background: #fff2f5; }
+.timeline-track li.now .wk::after { content: " · now"; color: var(--scarlet); font-weight: 500; }
+.timeline-track li.recess a { background: repeating-linear-gradient(135deg, var(--wash) 0 6px, #eceef1 6px 12px); }
+.timeline-legend { color: var(--ink-soft); font-size: .9rem; margin-top: .5rem; }
+.timeline-legend i { display: inline-block; width: 1.6rem; height: 5px; vertical-align: middle; margin-right: .35rem; }
+.exam-strip { margin-top: 1rem; padding: .8rem 1rem; border-left: 4px solid var(--scarlet); background: var(--wash); max-width: none; }
+@media (max-width: 900px) { .timeline-track { grid-template-columns: repeat(5, 1fr); } }
+@media (max-width: 520px) { .timeline-track { grid-template-columns: repeat(3, 1fr); } }
+
+/* tables */
+table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 1rem 0 1.5rem; }
+th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { border-bottom: 2px solid var(--ink); font-weight: 600; }
+td.num, th.num { text-align: right; }
+.table-scroll { overflow-x: auto; }
+
+/* module pages */
+.module-head { padding-top: 1rem; }
+.module-week { color: var(--scarlet); font-weight: 600; margin: 0; }
+.calendar-note { background: var(--wash); border-left: 4px solid var(--scarlet); padding: .6rem .9rem; }
+.module-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 3rem; align-items: start; }
+.module-rail { position: sticky; top: 1rem; border-top: 3px solid var(--ink); padding-top: .5rem; font-size: .95rem; }
+.module-rail h2 { font-size: 1rem; margin-top: 1.2rem; }
+.due-list { list-style: none; padding: 0; }
+.due-list li { padding: .35rem 0; border-bottom: 1px solid var(--rule); }
+.due-date { display: inline-block; min-width: 4.2rem; color: var(--scarlet); font-weight: 600; }
+.module-pager { display: flex; justify-content: space-between; gap: 2rem; margin: 3rem 0 2rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+@media (max-width: 860px) { .module-grid { grid-template-columns: 1fr; } .module-rail { position: static; } }
+
+/* content blocks */
+.objectives { background: var(--wash); padding: 1rem 1.25rem; border-left: 4px solid var(--ink); }
+.objectives h2 { margin-top: 0; font-size: 1.1rem; }
+.callout { border: 1px solid var(--rule); border-left: 4px solid var(--scarlet); padding: .9rem 1.1rem; margin: 1.5rem 0; }
+.callout h3 { margin-top: 0; }
+pre, code { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+pre { background: var(--wash); padding: 1rem; overflow-x: auto; border-radius: 3px; }
+code { background: var(--wash); padding: .1em .3em; border-radius: 3px; }
+pre code { background: none; padding: 0; }
+blockquote { margin: 1rem 0; padding-left: 1rem; border-left: 3px solid var(--rule); color: var(--ink-soft); }
+
+.site-footer { margin-top: 4rem; border-top: 1px solid var(--rule); padding: 1.5rem 0 2.5rem; color: var(--ink-soft); font-size: .9rem; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media print { .site-nav, .module-pager, .site-footer { display: none; } .module-grid { display: block; } }
+
+/* --- dynamic layer --- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;list-style:none;padding:0;max-width:none;margin:1rem 0}
+.card{border:1px solid var(--rule);border-top:4px solid var(--rule);border-radius:4px;padding:1rem 1.1rem;background:#fff;transition:transform .12s,box-shadow .12s;display:flex;flex-direction:column;gap:.35rem}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(31,42,58,.10)}
+.card.now{border-top-color:var(--scarlet);background:#fff7f9}.card.past{opacity:.75}
+.card .wk{color:var(--scarlet);font-weight:600;font-size:.85rem}.card h3{margin:0;font-size:1.05rem;line-height:1.3}.card .dt{color:var(--ink-soft);font-size:.85rem}
+.card .due{font-size:.85rem;margin-top:.2rem}.card .acts{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:auto;padding-top:.5rem}
+.btn{display:inline-block;padding:.35rem .75rem;border-radius:3px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:.85rem;font-weight:500}
+.btn:hover{background:var(--wash)}.btn.primary{background:var(--scarlet);border-color:var(--scarlet);color:#fff}.btn.primary:hover{background:var(--scarlet-deep)}
+.actionbar{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0 1.5rem}
+.now-hero{border:1px solid var(--rule);border-left:6px solid var(--scarlet);background:var(--wash);padding:1.1rem 1.4rem;margin:1.5rem 0;border-radius:4px}
+.now-hero h2{margin:0 0 .3rem;font-size:1.3rem}.now-hero p{margin:.2rem 0}
+.pill{display:inline-block;background:var(--ink);color:#fff;font-size:.72rem;padding:.1rem .5rem;border-radius:999px;margin-right:.4rem;vertical-align:middle}
+.pill.article{background:#2f5d8a}.pill.video{background:#b3411f}.pill.reference{background:#5d6470}
+.reslist li{margin:.45rem 0}
+.timeline-track li a{min-height:5.6rem}
+table.glance td a{font-weight:500}
+.hero-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.4rem}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap header-row"><a class="brand" href="/quality-management-fall2026/index.html"><span class="brand-course">16:540:580:90</span><span class="brand-title">Quality Management: quality economics for AI-enabled systems</span></a>
+<nav class="site-nav" aria-label="Site"><a href="/quality-management-fall2026/syllabus.html" aria-current="page">Syllabus</a><a href="/quality-management-fall2026/schedule.html">Schedule</a><a href="/quality-management-fall2026/lectures.html">Lectures</a><a href="/quality-management-fall2026/modules.html">Modules</a><a href="/quality-management-fall2026/assignments.html">Assignments</a><a href="/quality-management-fall2026/announcements.html">Announcements</a><a href="/quality-management-fall2026/live.html">Live sessions</a><a href="/quality-management-fall2026/textbooks.html">Textbooks</a><a href="/quality-management-fall2026/policies.html">Policies</a><a href="https://rutgers.instructure.com/courses/414298" rel="noopener">Canvas</a></nav></div></header>
+<main id="main" class="wrap"><article class="page"><h1>Syllabus</h1><p class="lede">16:540:580:90 Quality Management · Fall 2026 · Ron Iammartino, PhD</p><div class="actionbar"><a class="btn primary" href="/quality-management-fall2026/assignments.html">Assignments &amp; rubrics</a><a class="btn" href="/quality-management-fall2026/schedule.html">Full schedule</a><a class="btn" href="/quality-management-fall2026/lectures.html">All lectures</a><a class="btn" href="/quality-management-fall2026/textbooks.html">Textbooks</a></div><h2>Course at a glance</h2><div class="table-scroll"><table class="glance"><thead><tr><th>Wk</th><th>Dates</th><th>Module</th><th>Materials</th><th>Due (Wed 11:59 PM ET unless noted)</th></tr></thead><tbody><tr><td>1</td><td>Sep 3–Sep 9</td><td><a href="/quality-management-fall2026/week-01.html">Why life-cycle cost, and why now</a></td><td><a href="/quality-management-fall2026/lecture-01.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/00_tvm_library.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/discussions.html">Introduce yourself and software setup check</a> (Sep 9)</td></tr><tr><td>2</td><td>Sep 10–Sep 16</td><td><a href="/quality-management-fall2026/week-02.html">Time value of money and interest theory</a></td><td><a href="/quality-management-fall2026/lecture-02.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/00_tvm_library.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/discussions.html">Discussion post and one peer reply</a> (Sep 16)</td></tr><tr><td>3</td><td>Sep 17–Sep 23</td><td><a href="/quality-management-fall2026/week-03.html">Advanced analysis of alternatives</a></td><td><a href="/quality-management-fall2026/lecture-03.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case1_cost_of_quality.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/case1.html">Case 1</a> (Sep 23)</td></tr><tr><td>4</td><td>Sep 24–Sep 30</td><td><a href="/quality-management-fall2026/week-04.html">Depreciation, taxes, and inflation for technology assets</a></td><td><a href="/quality-management-fall2026/lecture-04.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case1_cost_of_quality.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/discussions.html">Discussion post and one peer reply</a> (Sep 30)</td></tr><tr><td>5</td><td>Oct 1–Oct 7</td><td><a href="/quality-management-fall2026/week-05.html">Cost estimating techniques</a></td><td><a href="/quality-management-fall2026/lecture-05.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case2_cer_ml.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/case2.html">Case 2</a> (Oct 7)</td></tr><tr><td>6</td><td>Oct 8–Oct 14</td><td><a href="/quality-management-fall2026/week-06.html">Life-cycle framework and total ownership cost</a></td><td><a href="/quality-management-fall2026/lecture-06.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case2_cer_ml.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/discussions.html">Discussion post and one peer reply</a> (Oct 14)</td></tr><tr><td>7</td><td>Oct 15–Oct 21</td><td><a href="/quality-management-fall2026/week-07.html">Simulation-based costing</a></td><td><a href="/quality-management-fall2026/lecture-07.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/lab_monte_carlo.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/final-project.html">Final project proposal</a> (Oct 21)<br><a href="/quality-management-fall2026/discussions.html">Discussion post and one peer reply</a> (Oct 21)</td></tr><tr><td>8</td><td>Oct 22–Oct 28</td><td><a href="/quality-management-fall2026/week-08.html">Costing complex systems; midterm</a></td><td><a href="/quality-management-fall2026/lecture-08.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/lab_monte_carlo.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/midterm.html">Midterm (open-book, 48-hour window)</a> (Oct 28)</td></tr><tr><td>9</td><td>Oct 29–Nov 4</td><td><a href="/quality-management-fall2026/week-09.html">Software-intensive systems</a></td><td><a href="/quality-management-fall2026/lecture-09.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/lab_monte_carlo.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/simulation-lab.html">Simulation lab</a> (Nov 4)</td></tr><tr><td>10</td><td>Nov 5–Nov 11</td><td><a href="/quality-management-fall2026/week-10.html">Costing the cloud, data, and machine learning</a></td><td><a href="/quality-management-fall2026/lecture-10.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case3_tco.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/discussions.html">Discussion post and one peer reply</a> (Nov 11)</td></tr><tr><td>11</td><td>Nov 12–Nov 18</td><td><a href="/quality-management-fall2026/week-11.html">Risk, value, and cost in decision making</a></td><td><a href="/quality-management-fall2026/lecture-11.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case3_tco.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/case3.html">Case 3</a> (Nov 18)</td></tr><tr><td>12</td><td>Nov 19–Nov 25</td><td><a href="/quality-management-fall2026/week-12.html">Off-the-shelf systems: build, buy, or adapt</a></td><td><a href="/quality-management-fall2026/lecture-12.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case4_decision.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/final-project.html">Final project interim report</a> (Nov 25)<br><a href="/quality-management-fall2026/discussions.html">Discussion post and one peer reply</a> (Nov 25)</td></tr><tr><td>13</td><td>Nov 26–Dec 2</td><td><a href="/quality-management-fall2026/week-13.html">Project management and earned value</a></td><td><a href="/quality-management-fall2026/lecture-13.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case4_decision.ipynb">notebook</a></td><td>—</td></tr><tr><td>14</td><td>Dec 3–Dec 9</td><td><a href="/quality-management-fall2026/week-14.html">Cost metrics, energy, and public-sector analysis</a></td><td><a href="/quality-management-fall2026/lecture-14.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case4_decision.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/case4.html">Case 4</a> (Dec 9)</td></tr><tr><td>15</td><td>Dec 10–Dec 10</td><td><a href="/quality-management-fall2026/week-15.html">Synthesis and course wrap-up</a></td><td><a href="/quality-management-fall2026/lecture-15.html">lecture</a> · <a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case4_decision.ipynb">notebook</a></td><td><a href="/quality-management-fall2026/discussions.html">Discussion post and one peer reply</a> (Dec 10)<br><a href="/quality-management-fall2026/final-project.html">Final project report and recorded briefing</a> (Dec 18)</td></tr></tbody></table></div>
+<h2>Course description</h2>
+<p>Quality management for engineers, taught through the economics of quality: what it costs to prevent, appraise, and fail, across the full life cycle of a system. The course integrates the quality body of knowledge (Juran and Deming, cost of quality, Taguchi loss, process capability and statistical process control, FMEA, DMAIC, supplier quality, ISO 9001 and ISO/IEC 42001, NIST AI RMF) with economic analysis of engineering alternatives across the full system life cycle, with emphasis on software-, cloud-, data-, and AI-intensive systems. Time value of money, comparison of alternatives, depreciation and after-tax analysis, inflation, cost estimating relationships, machine-learned CERs, and learning curves, life-cycle and total-ownership-cost frameworks, simulation-based (Monte Carlo) costing with Bayesian updating and conformal intervals, costing of complex and software-intensive systems, cloud and machine-learning cost models including the economics of fine-tuning, retrieval augmentation, distillation, quantization, and model routing, decision and risk analysis including real options and Markov decision processes for retraining policy, off-the-shelf and foundation-model acquisition economics, earned value, benefit-cost analysis, AI assurance and governance costs, and energy economics of compute. 3 credits. Fully asynchronous.</p>
+<p><strong>Prerequisites.</strong> Graduate standing in engineering or permission of the instructor. An undergraduate engineering economics course (e.g., 14:540:343) is assumed; Weeks 2–3 review it at speed. Working familiarity with Excel and introductory Python.</p>
+<h2>Learning outcomes</h2>
+<p>On completing the course you will be able to:</p>
+<ol>
+<li>Apply the cost-of-quality model, Taguchi loss, process capability, FMEA, and DMAIC to a software- or AI-intensive system, and place quality activities in a cost element structure.</li>
+<li>Construct cash-flow models and evaluate engineering alternatives by worth, rate-of-return, and benefit-cost methods, including after-tax and inflation-adjusted analysis.</li>
+<li>Build a cost element structure and life-cycle cost estimate for a complex system, selecting estimating methods appropriate to program phase, including machine-learned cost estimating relationships validated by cross-validation and explained with SHAP, and defending them against GAO cost-estimating criteria.</li>
+<li>Quantify cost uncertainty with Monte Carlo simulation, Bayesian updating, and conformal prediction; report confidence levels; and identify the drivers that warrant better data.</li>
+<li>Estimate software and machine-learning development and sustainment cost across the MLOps lifecycle, and build a total-cost-of-ownership model comparing API, rented-cloud, and owned-accelerator hosting patterns and adaptation techniques (prompting, RAG, fine-tuning, distillation, quantization, routing).</li>
+<li>Structure investment decisions under uncertainty with decision trees, value of information, real options, Markov decision processes (retraining under drift), and multi-attribute methods.</li>
+<li>Communicate an economic analysis to executive and oversight audiences in a written report and a recorded briefing.</li>
+</ol>
+<h2>Instructor and contact</h2>
+<p>Ron Iammartino, PhD · <a href="mailto:ri128@rutgers.edu">ri128@rutgers.edu</a> · 917-561-5374 · Canvas Inbox. Email and Canvas messages are answered within one business day, Monday–Friday; phone for urgent matters.
+Optional live session Thursdays 8:00 PM ET on Zoom (recorded); asynchronous Q&amp;A in the Canvas discussion board; attendance is optional and not graded, and every session is recorded and posted in Canvas. Live-session dates and join instructions are on the <a href="/quality-management-fall2026/live.html">Live sessions</a> page. Email and Canvas messages are answered within one business day, Monday–Friday.</p>
+<h2>Textbooks</h2>
+<p>See <a href="/quality-management-fall2026/textbooks.html">Textbooks and library access</a> for full citations and how to obtain each title through Rutgers University Libraries. The primary text is Farr &amp; Faber, <em>Engineering Economics of Life Cycle Cost Analysis</em>, 2nd ed. (FF). The backup text is Sullivan, Wicks &amp; Wilck, <em>Engineering Economy</em>, 18th ed. (SWW), used for foundational material and practice problems. Baley &amp; Veldkamp, <em>The Data Economy</em> (2025) supplies the data-as-capital models in Weeks 10 and 12. Every week also assigns free, open-access articles and videos, linked from the module page. Government guidance documents used in class (GAO-20-195G, OMB Circular A-94, IRS Publication 946, DoD 5000.73) are free and linked from the relevant module.</p>
+<h2>Software</h2>
+<p>Nothing to install. Every scaffold is a notebook that opens with one click in <strong>Google Colab</strong> (free; a Rutgers or personal Google account) and also runs in <strong>Azure Machine Learning Studio</strong> notebooks or any Jupyter. Data files load from the course repository automatically. Excel is optional: the data packs are also provided as <code>.xlsx</code> for anyone who prefers a spreadsheet, and memos may include spreadsheet tables. An AI assistant of your choice (Claude, ChatGPT, Copilot, Gemini) is expected for drafting and is governed by the policy below.</p>
+<h2>Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th style="text-align: right;">Weight</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Case studies (4)</td>
+<td style="text-align: right;">32%</td>
+<td>8% each; real ISE scenarios with data files and scaffolds provided</td>
+</tr>
+<tr>
+<td>Weekly discussions (7 graded weeks)</td>
+<td style="text-align: right;">10%</td>
+<td>Post by Wednesday, one peer reply by Friday; lowest dropped</td>
+</tr>
+<tr>
+<td>Simulation lab</td>
+<td style="text-align: right;">10%</td>
+<td>Agent-assisted Monte Carlo model, human-verified, due Week 9</td>
+</tr>
+<tr>
+<td>Midterm</td>
+<td style="text-align: right;">18%</td>
+<td>Open-book, 48-hour window inside Oct 22–28, covers Weeks 1–7</td>
+</tr>
+<tr>
+<td>Final project</td>
+<td style="text-align: right;">30%</td>
+<td>Proposal 3%, interim report 7%, final report and recorded briefing 20%</td>
+</tr>
+</tbody>
+</table>
+<p>Letter grades follow the School of Graduate Studies scale: A 90–100, B+ 85–89, B 80–84, C+ 75–79, C 70–74, F below 70. Grades are not curved.</p>
+<h2>Seat time</h2>
+<p>The course is built for <strong>three hours a week</strong>: about 45 minutes of recorded segments, an hour of reading limited to the sections listed on the module page, and 75 minutes of work (discussion, notebook, or progress on a case). Weeks with a case due trade the reading hour for the memo. Optional readings are marked optional and are never examined.</p>
+<h2>Weekly rhythm</h2>
+<p>This section opens Thursday, September 3. Modules open <strong>Thursdays at 9:00 AM ET</strong> on this site. The optional Zoom session is Thursdays at 8:00 PM ET (recorded; attendance not required). All deliverables for the week are due <strong>Wednesday at 11:59 PM ET</strong> except where the <a href="/quality-management-fall2026/schedule.html">schedule</a> says otherwise (midterm close, final project). Peer replies for discussions are due the following Friday at 11:59 PM ET so that everyone has something to reply to.</p>
+<h2>Late work</h2>
+<p>Cases and the lab: a 10% deduction per calendar day, up to five days, after which the work is not accepted. Discussion posts are not accepted late (the two lowest are dropped for this reason). The midterm window and final project deadline are firm except for documented emergencies or accommodations arranged in advance.</p>
+<h2>Final project</h2>
+<p>A life-cycle cost analysis of an AI-enabled system of your choosing (from your workplace, anonymized if needed, or from a provided list), comparing at least three acquisition/hosting alternatives, with a Monte Carlo treatment of uncertainty, a decision recommendation, and a 12-minute recorded executive briefing. Full specification on the <a href="/quality-management-fall2026/final-project.html">final project page</a>. Deliverables: proposal (Oct 21), interim report (Nov 25), final report and briefing (Dec 18). At least one alternative must be agentic or differ in ML technique; an AI-use appendix is required.</p>
+<h2>Use of generative and agentic AI</h2>
+<p>This course expects you to use AI assistants and agents the way a 2026 analyst does: to draft spreadsheets, notebooks, and prose scaffolds fast, and then to verify every number, assumption, and rule before you put your name on it. Rules: (a) each submission carries a short AI-use note stating what the tool did, what it got wrong, and what you verified; (b) analysis, judgment, and recommendations must be yours; (c) you must be able to explain and defend every line of every model you submit; (d) the midterm restricts AI use to software syntax only. The Simulation lab and each week's "Agentic AI corner" build the verification habit deliberately. Agents are also an object of study: Weeks 8, 10, 11, 12, and 14 cost agentic systems, and Case 4 governs one. Undisclosed use is an academic-integrity violation under the <a href="https://academicintegrity.rutgers.edu/">Rutgers policy</a>.</p>
+<h2>Accommodations, integrity, and support</h2>
+<p>See the <a href="/quality-management-fall2026/policies.html">policies page</a> for the full text of the academic integrity, disability services, Title IX, and student support statements required by the university.</p>
+<h2>Calendar authority</h2>
+<p>Dates on this site follow the official <a href="https://scheduling.rutgers.edu/">Rutgers University academic calendar</a> for 2026–2027: the university semester begins Tuesday, September 1 and this section's first class day is Thursday, September 3; Tuesday, September 8 follows a Monday schedule; Wednesday, November 25 follows a Friday schedule; Thanksgiving recess Thursday, November 26 – Sunday, November 29; regular classes end Thursday, December 10; reading days Friday, December 11 and Monday, December 14; final examinations Tuesday, December 15 – Tuesday, December 22. If the university revises the calendar, this site and Canvas will be updated and an announcement posted.</p></article></main>
+<footer class="site-footer"><div class="wrap"><p>16:540:580:90 · Fall 2026 · Industrial and Systems Engineering, School of Engineering / School of Graduate Studies, Rutgers University–New Brunswick · Ron Iammartino, PhD · <a href="mailto:ri128@rutgers.edu">ri128@rutgers.edu</a></p>
+<p>Dates follow the official <a href="https://scheduling.rutgers.edu/">Rutgers academic calendar</a>. Deadlines are Wednesdays at 11:59 PM Eastern unless stated otherwise. Live Zoom session Thursdays 8:00 PM ET is optional, not graded, and recorded.</p></div></footer>
+<script>// Highlights the current week on the home-page timeline using the real
+// semester dates embedded as data attributes. Dates are compared in
+// America/New_York to match Rutgers deadlines.
+(function () {
+  var items = document.querySelectorAll('.timeline-track li[data-start]');
+  if (!items.length) return;
+  var fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' });
+  var today = fmt.format(new Date()); // YYYY-MM-DD
+  items.forEach(function (li) {
+    var s = li.getAttribute('data-start'), e = li.getAttribute('data-end');
+    if (today > e) li.classList.add('past');
+    else if (today >= s && today <= e) { li.classList.add('now'); li.setAttribute('aria-current', 'date'); }
+  });
+})();
+</script></body></html>

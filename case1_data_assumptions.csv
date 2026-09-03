@@ -1,0 +1,30 @@
+parameter,value,basis
+annual_units_shipped,4200000,"Two SMT lines, three shifts, ~700k units/month; stated by plant management (course scenario)."
+volume_growth_per_year,0.03,Plant plan; course scenario.
+inspectors_per_shift_current,4,Current manual final visual inspection staffing.
+shifts,3,Course scenario.
+inspector_fully_loaded_hourly_usd,34.5,"Central NJ electronics assembler, 2026, wages plus ~32% burden; instructor estimate."
+hours_per_inspector_year,1950,Standard full-time equivalent.
+escape_rate_ppm_current,1100,Customer-reported defective PPM over last 4 quarters; course scenario.
+chargeback_per_escaped_unit_usd,38.0,Customer contract terms; course scenario.
+customer_audit_cost_per_quarter_usd,9500,Internal prep + external auditor day rate; course scenario.
+internal_rework_rate,0.018,"Units reworked before ship, share of throughput; MES data (scenario)."
+rework_cost_per_unit_usd,6.2,Labor + material for typical SMT rework; scenario.
+MARR,0.12,Plant hurdle rate; scenario.
+horizon_years,5,Analysis horizon.
+alt_A_added_inspectors_per_shift,1,Alternative A: add one inspector per shift.
+alt_A_escape_ppm_after,780,"Alternative A: engineering estimate, second-pass detection ~30%."
+alt_B_capex_usd,415000,"Alternative B: two vision cells, cameras, lighting, edge compute, integration; integrator budgetary quote (scenario)."
+alt_B_support_per_year_usd,46000,Alternative B: 5-year support contract.
+alt_B_retrain_cost_per_event_usd,12500,"Alternative B: retraining per new product family, integrator T&M."
+alt_B_new_product_families_per_year,3 to 5,Range: choose and justify. Product introductions history 2023–2025.
+alt_B_inspectors_per_shift_after,1,Alternative B: one operator/verifier per shift remains.
+alt_B_escape_ppm_after,180 to 320,Range: integrator claims 180; benchmark visits suggest 320. Choose and justify.
+alt_B_salvage_year5_usd,25000,Residual value of cameras/compute.
+alt_C_fee_per_line_month_usd,7900,"Alternative C: subscription per line per month, 3-year term, retraining included."
+alt_C_lines,2,Two lines.
+alt_C_term_years,3,Contract term; renewal price unknown (range +0% to +15%).
+alt_C_inspectors_per_shift_after,1,Same as B.
+alt_C_escape_ppm_after,200 to 340,"Range; same technology as B, less tuning control."
+alt_C_onboarding_fee_usd,30000,One-time integration fee.
+general_inflation,0.025,For labor escalation.

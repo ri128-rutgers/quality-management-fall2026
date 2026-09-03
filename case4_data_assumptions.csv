@@ -1,0 +1,22 @@
+parameter,value,basis
+distribution_centers,12,Scenario.
+fleet_deployment_cost_usd,4200000,Vendor proposal + integration.
+pilot_cost_usd,600000,"Three sites, one quarter."
+horizon_years,5,
+MARR,0.1,3PL hurdle rate.
+adoption_high_prob,0.45,"Site-manager adoption prior, from two comparable rollouts."
+adoption_medium_prob,0.35,
+adoption_low_prob,0.2,
+net_benefit_5yr_high_usd,9500000,Detention fees avoided + dock throughput; finance model.
+net_benefit_5yr_medium_usd,4000000,
+net_benefit_5yr_low_usd,-1500000,Below break-even; sustainment exceeds benefit.
+pilot_reliability_matrix,see sheet Pilot reliability,P(pilot says X | true state Y) from vendor's prior pilots.
+risk_tolerance_usd,5000000,For exponential utility; COO's stated tolerance.
+expansion_option_cost_usd,2000000,Extend to yard management at year 2.
+volatility_estimate,derive from adoption scenarios,Student computes.
+agent_actions_per_day_fleet,1800,Dock re-plans at full deployment.
+action_error_rate_vendor_reported,0.006,Per action; see failure history.
+cost_per_wrong_action_usd,"150 to 2,400",Range: missed appointment to chargeback; choose distribution.
+human_checkpoint_cost_per_review_usd,1.1,40 seconds of coordinator time.
+logging_audit_platform_usd_per_year,85000,SIEM/observability licence share.
+iso42001_certification_estimate_usd,"120,000 initial + 40,000/yr",Consultant estimate for scope of one management system.

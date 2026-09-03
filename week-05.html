@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 5: Cost estimating techniques — Quality Management 16:540:580:90</title><meta name="description" content="16:540:580:90 Quality Management — Rutgers Industrial &amp; Systems Engineering graduate course, Fall 2026, asynchronous with an optional weekly live session. Engineering economy foundations extended to complex, software-intensive, cloud, data, and machine-learning systems, with machine learning used both as a cost-estimating tool and as the object of analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>/* Palette: white page, deep slate text, Rutgers scarlet as the single accent. */
+:root {
+  --paper: #ffffff;
+  --ink: #1f2a3a;
+  --ink-soft: #5d6470;
+  --rule: #e3e6ea;
+  --wash: #f6f7f9;
+  --scarlet: #cc0033;          /* Rutgers scarlet */
+  --scarlet-deep: #99001f;
+  --measure: 68ch;
+  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 17px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; font-family: var(--font); color: var(--ink); background: var(--paper);
+  line-height: 1.55; font-variant-numeric: tabular-nums;
+}
+a { color: var(--scarlet-deep); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--scarlet); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--scarlet); outline-offset: 2px; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: .5rem 1rem; }
+.skip:focus { left: 0; z-index: 10; }
+
+.wrap { width: min(100% - 2.5rem, 1100px); margin-inline: auto; }
+
+h1, h2, h3, h4 { line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 .5em; }
+h1 { font-size: 2.2rem; margin-top: 1.2rem; }
+h2 { font-size: 1.45rem; margin-top: 2rem; }
+h3 { font-size: 1.12rem; margin-top: 1.5rem; }
+p, ul, ol { max-width: var(--measure); }
+.lede { font-size: 1.15rem; color: var(--ink-soft); }
+.muted { color: var(--ink-soft); }
+ul.plain, ol.plain { padding-left: 1.1rem; }
+
+/* header */
+.site-header { border-bottom: 1px solid var(--rule); }
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; padding: .9rem 0; }
+.brand { text-decoration: none; color: var(--ink); display: flex; flex-direction: column; }
+.brand-course { color: var(--scarlet); font-weight: 600; font-size: .95rem; }
+.brand-title { font-weight: 500; font-size: 1.05rem; }
+.site-nav { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+.site-nav a { text-decoration: none; color: var(--ink); padding: .25rem 0; border-bottom: 2px solid transparent; }
+.site-nav a[aria-current="page"], .site-nav a:hover { border-bottom-color: var(--scarlet); }
+
+/* home */
+.hero { padding: 3rem 0 2rem; border-bottom: 1px solid var(--rule); }
+.hero h1 { font-size: clamp(2rem, 4vw, 3rem); max-width: 22ch; }
+.hero .lede { max-width: 60ch; }
+.hero-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem 2rem; margin-top: 1.5rem; padding: 0; list-style: none; max-width: none; }
+.hero-facts li { border-top: 2px solid var(--ink); padding-top: .5rem; }
+.hero-facts li span { display: block; color: var(--ink-soft); font-size: .9rem; }
+
+/* semester timeline — the one bold element */
+.timeline { margin: 2.5rem 0; }
+.timeline-track {
+  display: grid; grid-template-columns: repeat(15, 1fr); gap: 3px; margin-top: .75rem;
+  list-style: none; padding: 0; max-width: none;
+}
+.timeline-track li a {
+  display: block; text-decoration: none; color: var(--ink); background: var(--wash);
+  border-top: 5px solid var(--rule); padding: .45rem .3rem .55rem; min-height: 5.2rem;
+  transition: background .15s;
+}
+.timeline-track li a:hover { background: #eceef1; }
+.timeline-track .wk { font-weight: 600; font-size: .95rem; }
+.timeline-track .dt { display: block; font-size: .78rem; color: var(--ink-soft); }
+.timeline-track .tt { display: block; font-size: .78rem; margin-top: .25rem; line-height: 1.25; }
+.timeline-track li.past a { border-top-color: var(--ink-soft); }
+.timeline-track li.now a { border-top-color: var(--scarlet); background: #fff2f5; }
+.timeline-track li.now .wk::after { content: " · now"; color: var(--scarlet); font-weight: 500; }
+.timeline-track li.recess a { background: repeating-linear-gradient(135deg, var(--wash) 0 6px, #eceef1 6px 12px); }
+.timeline-legend { color: var(--ink-soft); font-size: .9rem; margin-top: .5rem; }
+.timeline-legend i { display: inline-block; width: 1.6rem; height: 5px; vertical-align: middle; margin-right: .35rem; }
+.exam-strip { margin-top: 1rem; padding: .8rem 1rem; border-left: 4px solid var(--scarlet); background: var(--wash); max-width: none; }
+@media (max-width: 900px) { .timeline-track { grid-template-columns: repeat(5, 1fr); } }
+@media (max-width: 520px) { .timeline-track { grid-template-columns: repeat(3, 1fr); } }
+
+/* tables */
+table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 1rem 0 1.5rem; }
+th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { border-bottom: 2px solid var(--ink); font-weight: 600; }
+td.num, th.num { text-align: right; }
+.table-scroll { overflow-x: auto; }
+
+/* module pages */
+.module-head { padding-top: 1rem; }
+.module-week { color: var(--scarlet); font-weight: 600; margin: 0; }
+.calendar-note { background: var(--wash); border-left: 4px solid var(--scarlet); padding: .6rem .9rem; }
+.module-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 3rem; align-items: start; }
+.module-rail { position: sticky; top: 1rem; border-top: 3px solid var(--ink); padding-top: .5rem; font-size: .95rem; }
+.module-rail h2 { font-size: 1rem; margin-top: 1.2rem; }
+.due-list { list-style: none; padding: 0; }
+.due-list li { padding: .35rem 0; border-bottom: 1px solid var(--rule); }
+.due-date { display: inline-block; min-width: 4.2rem; color: var(--scarlet); font-weight: 600; }
+.module-pager { display: flex; justify-content: space-between; gap: 2rem; margin: 3rem 0 2rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+@media (max-width: 860px) { .module-grid { grid-template-columns: 1fr; } .module-rail { position: static; } }
+
+/* content blocks */
+.objectives { background: var(--wash); padding: 1rem 1.25rem; border-left: 4px solid var(--ink); }
+.objectives h2 { margin-top: 0; font-size: 1.1rem; }
+.callout { border: 1px solid var(--rule); border-left: 4px solid var(--scarlet); padding: .9rem 1.1rem; margin: 1.5rem 0; }
+.callout h3 { margin-top: 0; }
+pre, code { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+pre { background: var(--wash); padding: 1rem; overflow-x: auto; border-radius: 3px; }
+code { background: var(--wash); padding: .1em .3em; border-radius: 3px; }
+pre code { background: none; padding: 0; }
+blockquote { margin: 1rem 0; padding-left: 1rem; border-left: 3px solid var(--rule); color: var(--ink-soft); }
+
+.site-footer { margin-top: 4rem; border-top: 1px solid var(--rule); padding: 1.5rem 0 2.5rem; color: var(--ink-soft); font-size: .9rem; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media print { .site-nav, .module-pager, .site-footer { display: none; } .module-grid { display: block; } }
+
+/* --- dynamic layer --- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;list-style:none;padding:0;max-width:none;margin:1rem 0}
+.card{border:1px solid var(--rule);border-top:4px solid var(--rule);border-radius:4px;padding:1rem 1.1rem;background:#fff;transition:transform .12s,box-shadow .12s;display:flex;flex-direction:column;gap:.35rem}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(31,42,58,.10)}
+.card.now{border-top-color:var(--scarlet);background:#fff7f9}.card.past{opacity:.75}
+.card .wk{color:var(--scarlet);font-weight:600;font-size:.85rem}.card h3{margin:0;font-size:1.05rem;line-height:1.3}.card .dt{color:var(--ink-soft);font-size:.85rem}
+.card .due{font-size:.85rem;margin-top:.2rem}.card .acts{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:auto;padding-top:.5rem}
+.btn{display:inline-block;padding:.35rem .75rem;border-radius:3px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:.85rem;font-weight:500}
+.btn:hover{background:var(--wash)}.btn.primary{background:var(--scarlet);border-color:var(--scarlet);color:#fff}.btn.primary:hover{background:var(--scarlet-deep)}
+.actionbar{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0 1.5rem}
+.now-hero{border:1px solid var(--rule);border-left:6px solid var(--scarlet);background:var(--wash);padding:1.1rem 1.4rem;margin:1.5rem 0;border-radius:4px}
+.now-hero h2{margin:0 0 .3rem;font-size:1.3rem}.now-hero p{margin:.2rem 0}
+.pill{display:inline-block;background:var(--ink);color:#fff;font-size:.72rem;padding:.1rem .5rem;border-radius:999px;margin-right:.4rem;vertical-align:middle}
+.pill.article{background:#2f5d8a}.pill.video{background:#b3411f}.pill.reference{background:#5d6470}
+.reslist li{margin:.45rem 0}
+.timeline-track li a{min-height:5.6rem}
+table.glance td a{font-weight:500}
+.hero-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.4rem}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap header-row"><a class="brand" href="/quality-management-fall2026/index.html"><span class="brand-course">16:540:580:90</span><span class="brand-title">Quality Management: quality economics for AI-enabled systems</span></a>
+<nav class="site-nav" aria-label="Site"><a href="/quality-management-fall2026/syllabus.html">Syllabus</a><a href="/quality-management-fall2026/schedule.html">Schedule</a><a href="/quality-management-fall2026/lectures.html">Lectures</a><a href="/quality-management-fall2026/modules.html" aria-current="page">Modules</a><a href="/quality-management-fall2026/assignments.html">Assignments</a><a href="/quality-management-fall2026/announcements.html">Announcements</a><a href="/quality-management-fall2026/live.html">Live sessions</a><a href="/quality-management-fall2026/textbooks.html">Textbooks</a><a href="/quality-management-fall2026/policies.html">Policies</a><a href="https://rutgers.instructure.com/courses/414298" rel="noopener">Canvas</a></nav></div></header>
+<main id="main" class="wrap"><article class="module"><header class="module-head"><p class="module-week">Week 5 &nbsp;·&nbsp; Thu Oct 1 – Wed Oct 7, 2026</p><h1>Cost estimating techniques</h1>
+<div class="actionbar"><a class="btn primary" href="/quality-management-fall2026/lecture-05.html">▶ Interactive lecture</a><a class="btn" href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case2_cer_ml.ipynb" rel="noopener">Open notebook in Colab</a><a class="btn" href="/quality-management-fall2026/case2.html">Due Oct 7: Case 2</a><a class="btn" href="https://rutgers.instructure.com/courses/414298" rel="noopener">Submit in Canvas</a></div></header>
+<div class="module-grid"><div class="module-body"><div class="objectives">
+<h2>Learning objectives</h2>
+<ul>
+<li>Select among analogy, parametric, engineering build-up, and expert-judgment methods based on program phase and data availability.</li>
+<li>Fit and apply a cost estimating relationship (CER) with regression, report its statistical quality, and state its valid range.</li>
+<li>Apply learning-curve theory (unit and cumulative-average) to production and to repeated ML training runs.</li>
+<li>Build a machine-learned cost estimating relationship (regularized regression, random forest, gradient boosting) with proper cross-validation, compare it against the OLS CER, and explain it with SHAP values.</li>
+</ul>
+</div>
+<h2>Lecture segments</h2>
+<h3>1. The estimating methods and when they fit</h3>
+<p>Early in the life cycle you have analogies; in design you have parameters; in production you have build-ups. Mapping the GAO 12-step process onto a technology program.</p>
+<h3>2. Parametric estimating and CERs</h3>
+<p>Ordinary least squares, log-linear forms, and the danger of extrapolating a CER built on CPU-era data to accelerator-era programs. We fit a CER from a public dataset in the lab notebook.</p>
+<h3>3. Machine learning as an estimating method</h3>
+<p>When a program database has hundreds of records and dozens of attributes, OLS CERs underfit. Ridge/lasso, random forests, and gradient-boosted trees as CERs; k-fold cross-validation as the honest replacement for in-sample $R^2$; SHAP values to satisfy the reviewer who asks why the model produced that number. We also cover the failure modes GAO reviewers look for: leakage, extrapolation outside the training envelope, and unstable estimates on small datasets.</p>
+<h3>4. Learning curves</h3>
+<p>Wright's cumulative-average and Crawford's unit models. Application beyond manufacturing: labeling throughput, MLOps deployment time per model, and the observed decline in cost per training run within a model family.</p>
+<h2>Quality management lens</h2>
+<p><strong>Quality of the estimate itself.</strong> GAO's four characteristics of a reliable estimate (comprehensive, well-documented, accurate, credible) are a quality standard for cost work. A CER's residual plot is a control chart: patterns in the residuals are assignable causes. Cross-validation is appraisal cost for a model; documentation is prevention cost.</p>
+<h2>Agentic AI corner</h2>
+<p>Use an agent to write the cross-validation loop for the CER notebook, then read the code before running it. Agents leak test data into training folds more often than you would expect; that is exactly the appraisal step a quality manager performs on a supplier's process.</p>
+<h2>This week's work</h2>
+<ol>
+<li>Submit Case 2.</li>
+<li>Run the provided notebook that fits an OLS CER and a gradient-boosted CER; interpret the cross-validated error, the relevant range, and the SHAP summary in a half-page note.</li>
+<li>Discussion: describe an estimate you have seen that used the wrong method for the phase it was in.</li>
+</ol>
+<h2>Open articles and videos</h2>
+<p>Free, no login required. Read or watch what the lecture segments point to; the rest is optional depth.</p>
+<ul>
+<li><em>reference</em> — <a href="https://www.gao.gov/products/gao-20-195g">GAO-20-195G, Cost Estimating and Assessment Guide</a>. Chapters 1–3 and 11 assigned; the whole guide is the reference standard for defensible estimates.</li>
+<li><em>reference</em> — <a href="https://www.statlearning.com/">James, Witten, Hastie, Tibshirani &amp; Taylor – An Introduction to Statistical Learning with Applications in Python (free PDF and lecture videos)</a>. Chapters 5 (resampling) and 8 (tree-based methods).</li>
+<li><em>article</em> — <a href="https://arxiv.org/abs/2107.07511">Angelopoulos &amp; Bates – A Gentle Introduction to Conformal Prediction</a>. Read Sections 1–2 now; the rest in Week 7.</li>
+</ul>
+<div class="callout">
+<h3>Submission</h3>
+<p>All graded work is submitted in Canvas. Discussion posts are due by the week's Wednesday deadline; the one peer reply by the following Friday at 11:59 PM ET. The live Zoom session Thursday at 8:00 PM ET is optional; attendance is not part of the grade. The Zoom cloud recording is posted in Canvas and linked from <a href="/quality-management-fall2026/live.html">Live sessions</a> within 24 hours.</p>
+</div></div>
+<aside class="module-rail" aria-label="This week at a glance"><h2>Due this week</h2><ul class="due-list"><li><span class="due-date">Oct 7</span> <a href="/quality-management-fall2026/case2.html">Case 2 – Estimate it: a predictive-maintenance program for a plant</a></li></ul>
+<h2>Interactive lecture</h2><p><a href="/quality-management-fall2026/lecture-05.html">Open the Week 5 lecture</a> — slides with live calculators, check questions, and the videos; 45–55 minutes with the recording.</p>
+<h2>Live session</h2><p><strong>Thu Oct 1</strong>, 8:00 PM ET on Zoom. Optional, not graded, recorded. <a href="/quality-management-fall2026/live.html">Details and recordings</a>.</p>
+<h2>Readings</h2><ul class="plain"><li>FF Ch. 9 – Cost Estimating Techniques</li><li>GAO-20-195G, Chapter 3 (the four characteristics) and Chapter 11 (estimating methods) only</li><li>Optional: James, Witten, Hastie &amp; Tibshirani, An Introduction to Statistical Learning with Applications in Python (2023), Chs. 5 and 8 (free at statlearning.com)</li></ul>
+<h2>Time budget</h2><p>3 hours: about 45 minutes of recorded segments, 60 minutes of reading (listed sections only), 75 minutes of work.</p>
+<h2>Notebook</h2><p><a href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/case2_cer_ml.ipynb" rel="noopener">Open case2_cer_ml in Colab</a> · <a href="https://github.com/ri128-rutgers/quality-management-fall2026/blob/main/case2_cer_ml.ipynb" rel="noopener">view on GitHub</a></p>
+<h2>Recordings</h2><p class="muted">Lecture segments and the Zoom cloud recording are posted in Canvas under Week 5 once released.</p></aside></div>
+<nav class="module-pager"><span><a href="/quality-management-fall2026/week-04.html">← Week 4: Depreciation, taxes, and inflation for technology assets</a></span><span><a href="/quality-management-fall2026/week-06.html">Week 6: Life-cycle framework and total ownership cost →</a></span></nav></article></main>
+<footer class="site-footer"><div class="wrap"><p>16:540:580:90 · Fall 2026 · Industrial and Systems Engineering, School of Engineering / School of Graduate Studies, Rutgers University–New Brunswick · Ron Iammartino, PhD · <a href="mailto:ri128@rutgers.edu">ri128@rutgers.edu</a></p>
+<p>Dates follow the official <a href="https://scheduling.rutgers.edu/">Rutgers academic calendar</a>. Deadlines are Wednesdays at 11:59 PM Eastern unless stated otherwise. Live Zoom session Thursdays 8:00 PM ET is optional, not graded, and recorded.</p></div></footer>
+<script>// Highlights the current week on the home-page timeline using the real
+// semester dates embedded as data attributes. Dates are compared in
+// America/New_York to match Rutgers deadlines.
+(function () {
+  var items = document.querySelectorAll('.timeline-track li[data-start]');
+  if (!items.length) return;
+  var fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' });
+  var today = fmt.format(new Date()); // YYYY-MM-DD
+  items.forEach(function (li) {
+    var s = li.getAttribute('data-start'), e = li.getAttribute('data-end');
+    if (today > e) li.classList.add('past');
+    else if (today >= s && today <= e) { li.classList.add('now'); li.setAttribute('aria-current', 'date'); }
+  });
+})();
+</script></body></html>
