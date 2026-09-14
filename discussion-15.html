@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 15 discussion: What transfers, and what does not — Quality Management 16:540:580:90</title><meta name="description" content="16:540:580:90 Quality Management — Rutgers Industrial &amp; Systems Engineering graduate course, Fall 2026, asynchronous with an optional weekly live session. Engineering economy foundations extended to complex, software-intensive, cloud, data, and machine-learning systems, with machine learning used both as a cost-estimating tool and as the object of analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>/* Palette: white page, deep slate text, Rutgers scarlet as the single accent. */
+:root {
+  --paper: #ffffff;
+  --ink: #1f2a3a;
+  --ink-soft: #5d6470;
+  --rule: #e3e6ea;
+  --wash: #f6f7f9;
+  --scarlet: #cc0033;          /* Rutgers scarlet */
+  --scarlet-deep: #99001f;
+  --measure: 68ch;
+  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 17px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; font-family: var(--font); color: var(--ink); background: var(--paper);
+  line-height: 1.55; font-variant-numeric: tabular-nums;
+}
+a { color: var(--scarlet-deep); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--scarlet); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--scarlet); outline-offset: 2px; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: .5rem 1rem; }
+.skip:focus { left: 0; z-index: 10; }
+
+.wrap { width: min(100% - 2.5rem, 1100px); margin-inline: auto; }
+
+h1, h2, h3, h4 { line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 .5em; }
+h1 { font-size: 2.2rem; margin-top: 1.2rem; }
+h2 { font-size: 1.45rem; margin-top: 2rem; }
+h3 { font-size: 1.12rem; margin-top: 1.5rem; }
+p, ul, ol { max-width: var(--measure); }
+.lede { font-size: 1.15rem; color: var(--ink-soft); }
+.muted { color: var(--ink-soft); }
+ul.plain, ol.plain { padding-left: 1.1rem; }
+
+/* header */
+.site-header { border-bottom: 1px solid var(--rule); }
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; padding: .9rem 0; }
+.brand { text-decoration: none; color: var(--ink); display: flex; flex-direction: column; }
+.brand-course { color: var(--scarlet); font-weight: 600; font-size: .95rem; }
+.brand-title { font-weight: 500; font-size: 1.05rem; }
+.site-nav { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+.site-nav a { text-decoration: none; color: var(--ink); padding: .25rem 0; border-bottom: 2px solid transparent; }
+.site-nav a[aria-current="page"], .site-nav a:hover { border-bottom-color: var(--scarlet); }
+
+/* home */
+.hero { padding: 3rem 0 2rem; border-bottom: 1px solid var(--rule); }
+.hero h1 { font-size: clamp(2rem, 4vw, 3rem); max-width: 22ch; }
+.hero .lede { max-width: 60ch; }
+.hero-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem 2rem; margin-top: 1.5rem; padding: 0; list-style: none; max-width: none; }
+.hero-facts li { border-top: 2px solid var(--ink); padding-top: .5rem; }
+.hero-facts li span { display: block; color: var(--ink-soft); font-size: .9rem; }
+
+/* semester timeline — the one bold element */
+.timeline { margin: 2.5rem 0; }
+.timeline-track {
+  display: grid; grid-template-columns: repeat(15, 1fr); gap: 3px; margin-top: .75rem;
+  list-style: none; padding: 0; max-width: none;
+}
+.timeline-track li a {
+  display: block; text-decoration: none; color: var(--ink); background: var(--wash);
+  border-top: 5px solid var(--rule); padding: .45rem .3rem .55rem; min-height: 5.2rem;
+  transition: background .15s;
+}
+.timeline-track li a:hover { background: #eceef1; }
+.timeline-track .wk { font-weight: 600; font-size: .95rem; }
+.timeline-track .dt { display: block; font-size: .78rem; color: var(--ink-soft); }
+.timeline-track .tt { display: block; font-size: .78rem; margin-top: .25rem; line-height: 1.25; }
+.timeline-track li.past a { border-top-color: var(--ink-soft); }
+.timeline-track li.now a { border-top-color: var(--scarlet); background: #fff2f5; }
+.timeline-track li.now .wk::after { content: " · now"; color: var(--scarlet); font-weight: 500; }
+.timeline-track li.recess a { background: repeating-linear-gradient(135deg, var(--wash) 0 6px, #eceef1 6px 12px); }
+.timeline-legend { color: var(--ink-soft); font-size: .9rem; margin-top: .5rem; }
+.timeline-legend i { display: inline-block; width: 1.6rem; height: 5px; vertical-align: middle; margin-right: .35rem; }
+.exam-strip { margin-top: 1rem; padding: .8rem 1rem; border-left: 4px solid var(--scarlet); background: var(--wash); max-width: none; }
+@media (max-width: 900px) { .timeline-track { grid-template-columns: repeat(5, 1fr); } }
+@media (max-width: 520px) { .timeline-track { grid-template-columns: repeat(3, 1fr); } }
+
+/* tables */
+table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 1rem 0 1.5rem; }
+th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { border-bottom: 2px solid var(--ink); font-weight: 600; }
+td.num, th.num { text-align: right; }
+.table-scroll { overflow-x: auto; }
+
+/* module pages */
+.module-head { padding-top: 1rem; }
+.module-week { color: var(--scarlet); font-weight: 600; margin: 0; }
+.calendar-note { background: var(--wash); border-left: 4px solid var(--scarlet); padding: .6rem .9rem; }
+.module-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 3rem; align-items: start; }
+.module-rail { position: sticky; top: 1rem; border-top: 3px solid var(--ink); padding-top: .5rem; font-size: .95rem; }
+.module-rail h2 { font-size: 1rem; margin-top: 1.2rem; }
+.due-list { list-style: none; padding: 0; }
+.due-list li { padding: .35rem 0; border-bottom: 1px solid var(--rule); }
+.due-date { display: inline-block; min-width: 4.2rem; color: var(--scarlet); font-weight: 600; }
+.module-pager { display: flex; justify-content: space-between; gap: 2rem; margin: 3rem 0 2rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+@media (max-width: 860px) { .module-grid { grid-template-columns: 1fr; } .module-rail { position: static; } }
+
+/* content blocks */
+.objectives { background: var(--wash); padding: 1rem 1.25rem; border-left: 4px solid var(--ink); }
+.objectives h2 { margin-top: 0; font-size: 1.1rem; }
+.callout { border: 1px solid var(--rule); border-left: 4px solid var(--scarlet); padding: .9rem 1.1rem; margin: 1.5rem 0; }
+.callout h3 { margin-top: 0; }
+pre, code { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+pre { background: var(--wash); padding: 1rem; overflow-x: auto; border-radius: 3px; }
+code { background: var(--wash); padding: .1em .3em; border-radius: 3px; }
+pre code { background: none; padding: 0; }
+blockquote { margin: 1rem 0; padding-left: 1rem; border-left: 3px solid var(--rule); color: var(--ink-soft); }
+
+.site-footer { margin-top: 4rem; border-top: 1px solid var(--rule); padding: 1.5rem 0 2.5rem; color: var(--ink-soft); font-size: .9rem; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media print { .site-nav, .module-pager, .site-footer { display: none; } .module-grid { display: block; } }
+
+/* --- dynamic layer --- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;list-style:none;padding:0;max-width:none;margin:1rem 0}
+.card{border:1px solid var(--rule);border-top:4px solid var(--rule);border-radius:4px;padding:1rem 1.1rem;background:#fff;transition:transform .12s,box-shadow .12s;display:flex;flex-direction:column;gap:.35rem}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(31,42,58,.10)}
+.card.now{border-top-color:var(--scarlet);background:#fff7f9}.card.past{opacity:.75}
+.card .wk{color:var(--scarlet);font-weight:600;font-size:.85rem}.card h3{margin:0;font-size:1.05rem;line-height:1.3}.card .dt{color:var(--ink-soft);font-size:.85rem}
+.card .due{font-size:.85rem;margin-top:.2rem}.card .acts{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:auto;padding-top:.5rem}
+.btn{display:inline-block;padding:.35rem .75rem;border-radius:3px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:.85rem;font-weight:500}
+.btn:hover{background:var(--wash)}.btn.primary{background:var(--scarlet);border-color:var(--scarlet);color:#fff}.btn.primary:hover{background:var(--scarlet-deep)}
+.actionbar{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0 1.5rem}
+.now-hero{border:1px solid var(--rule);border-left:6px solid var(--scarlet);background:var(--wash);padding:1.1rem 1.4rem;margin:1.5rem 0;border-radius:4px}
+.now-hero h2{margin:0 0 .3rem;font-size:1.3rem}.now-hero p{margin:.2rem 0}
+.pill{display:inline-block;background:var(--ink);color:#fff;font-size:.72rem;padding:.1rem .5rem;border-radius:999px;margin-right:.4rem;vertical-align:middle}
+.pill.article{background:#2f5d8a}.pill.video{background:#b3411f}.pill.reference{background:#5d6470}
+.reslist li{margin:.45rem 0}
+.timeline-track li a{min-height:5.6rem}
+table.glance td a{font-weight:500}
+.hero-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.4rem}
+</style><style>
+.builder{background:var(--wash);border-left:4px solid var(--ink);padding:1rem 1.2rem;margin:1rem 0}.builder label{display:block;font-size:.9rem;color:var(--ink-soft);margin-top:.6rem}
+.builder input,.builder textarea,.builder select{width:100%;font:inherit;padding:.4rem;border:1px solid #c9cdd3;border-radius:3px;margin-top:.2rem}.builder textarea{min-height:5rem}
+.builder button{font:inherit;padding:.4rem 1rem;border:none;background:var(--scarlet);color:#fff;border-radius:3px;cursor:pointer;margin-top:.7rem;margin-right:.5rem}.builder button.alt{background:var(--ink)}
+.srcbox{border:1px solid var(--rule);border-left:4px solid #2f5d8a;padding:.9rem 1.1rem;margin:1rem 0}.srcbox .venue{color:#2f5d8a;font-weight:600;font-size:.85rem}
+.count{font-size:.85rem;color:var(--ink-soft)}
+.vid{position:relative;padding-bottom:56.25%;height:0;margin:1rem 0;max-width:800px}.vid iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+</style><script>
+function buildPost(n){const g=id=>document.getElementById(id+'_'+n).value.trim();const parts=[];
+if(g('sit'))parts.push('Situation (anonymized): '+g('sit'));
+if(g('src'))parts.push('From the source ('+g('loc')+'): '+g('src'));
+if(g('pos'))parts.push('My position: '+g('pos'));
+if(g('num'))parts.push('The number: '+g('num'));
+if(g('q'))parts.push('Question for the thread: '+g('q'));
+const out=parts.join('\n\n');document.getElementById('out_'+n).value=out;document.getElementById('cnt_'+n).textContent=out.split(/\s+/).filter(Boolean).length+' words (target 100-200)';}
+function buildReply(n){const lens=document.getElementById('lens_'+n).value;const to=document.getElementById('to_'+n).value.trim();const pt=document.getElementById('pt_'+n).value.trim();
+const L={counter:'Here is a case where that does not hold: ',source:'A source that bears on this: ',number:'If I re-run your logic with a different number: ',question:'The thing I would want to know before agreeing: ',period:'Check the period: the rate you quoted is per '};
+document.getElementById('rout_'+n).value='@'+to+' - '+L[lens]+pt;}
+function copyBox(id){const el=document.getElementById(id);el.select();navigator.clipboard.writeText(el.value).then(()=>{const b=document.getElementById('cb_'+id);b.textContent='Copied - paste into Canvas';setTimeout(()=>b.textContent='Copy',2500)});}
+</script></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap header-row"><a class="brand" href="/quality-management-fall2026/index.html"><span class="brand-course">16:540:580:90</span><span class="brand-title">Quality Management: quality economics for AI-enabled systems</span></a>
+<nav class="site-nav" aria-label="Site"><a href="/quality-management-fall2026/syllabus.html">Syllabus</a><a href="/quality-management-fall2026/schedule.html">Schedule</a><a href="/quality-management-fall2026/lectures.html">Lectures</a><a href="/quality-management-fall2026/modules.html">Modules</a><a href="/quality-management-fall2026/assignments.html" aria-current="page">Assignments</a><a href="/quality-management-fall2026/announcements.html">Announcements</a><a href="/quality-management-fall2026/live.html">Live sessions</a><a href="/quality-management-fall2026/textbooks.html">Textbooks</a><a href="/quality-management-fall2026/policies.html">Policies</a><a href="https://rutgers.instructure.com/courses/414298" rel="noopener">Canvas</a></nav></div></header>
+<main id="main" class="wrap"><article class="page"><p class="module-week">Week 15 graded discussion · post by Wed Dec 10 11:59 PM ET · reply by Fri Dec 12 11:59 PM ET</p><h1>What transfers, and what does not</h1>
+<div class="actionbar"><a class="btn primary" href="https://rutgers.instructure.com/courses/414298/discussion_topics" rel="noopener">Post in Canvas</a><a class="btn" href="/quality-management-fall2026/week-15.html">Week 15 module</a><a class="btn" href="/quality-management-fall2026/discussions.html">All discussions</a></div>
+<h2>The prompt</h2><p class="big">Looking back over the term: name one classical engineering-economy tool that transferred unchanged to AI-enabled systems and one that needed adaptation, with a sentence on why for each. Then the one idea from this course you expect to use at work in the next ninety days. Reply to a classmate whose &#x27;adaptation&#x27; choice differs from yours.</p>
+<h2>Read first</h2><div class="srcbox"><p class="venue">South African Journal of Industrial Engineering (peer-reviewed, open access)</p><p><a href="https://www.scielo.org.za/pdf/sajie/v35n3/12.pdf" rel="noopener">Magodi, A. Y., Mashamba, T., &amp; Mokgohloa, K. (2024). Impact of Quality 4.0 implementation in industries: a systematic literature review. South African Journal of Industrial Engineering, 35(3), 124–134.</a></p><p>An industrial-engineering journal&#x27;s review of Quality 4.0 (quality management meeting AI and data) across 2014–2024. Companion reading: Zonnenshain &amp; Kenett (2020), Quality 4.0 — the challenging future of quality engineering, Quality Engineering 32(4).</p><p class="muted">Your post must cite one specific claim from this source (section, page, or timestamp). That is what turns opinion into evidence.</p></div>
+
+<h2>Build your post</h2><p class="muted">Fill what applies; the builder assembles a 100–200 word post in the required shape. Copy it into the Canvas discussion. Nothing is stored here.</p>
+<div class="builder">
+<label>Your situation, anonymized (2–3 sentences)<textarea id="sit_15"></textarea></label>
+<label>One claim from the source<textarea id="src_15" placeholder="Paraphrase or quote a specific finding"></textarea></label>
+<label>Where in the source (section / page / timestamp)<input id="loc_15" placeholder="e.g., Section 4, Table 2"></label>
+<label>Your position (one or two sentences)<textarea id="pos_15"></textarea></label>
+<label>The number that supports it (rate, cost, percentage, date)<input id="num_15"></label>
+<label>A question for classmates<input id="q_15"></label>
+<button onclick="buildPost(15)">Build my post</button>
+<textarea id="out_15" placeholder="Your assembled post appears here"></textarea><span class="count" id="cnt_15"></span><br><button class="alt" id="cb_out_15" onclick="copyBox('out_15')">Copy</button>
+</div>
+<h2>Build your reply (due Friday)</h2><div class="builder">
+<label>Replying to (classmate's name)<input id="to_15"></label>
+<label>Reply lens<select id="lens_15"><option value="counter">A counterexample</option><option value="source">A source that bears on it</option><option value="number">Re-run their logic with a different number</option><option value="question">The question that would change my mind</option><option value="period">Check their compounding period / units</option></select></label>
+<label>Your point (2–4 sentences)<textarea id="pt_15"></textarea></label>
+<button onclick="buildReply(15)">Build my reply</button>
+<textarea id="rout_15"></textarea><br><button class="alt" id="cb_rout_15" onclick="copyBox('rout_15')">Copy</button>
+</div>
+<h2>Rubric (10 points)</h2><table><tr><th>Criterion</th><th>Points</th></tr><tr><td>Takes a position and uses the week&#x27;s concepts correctly</td><td>4</td></tr><tr><td>Cites a specific claim from the source and gives a number or concrete example</td><td>2</td></tr><tr><td>On time and 100–200 words</td><td>1</td></tr><tr><td>One reply that adds something (counterexample, source, question, re-run)</td><td>3</td></tr></table>
+</article></main>
+<footer class="site-footer"><div class="wrap"><p>16:540:580:90 · Fall 2026 · Industrial and Systems Engineering, School of Engineering / School of Graduate Studies, Rutgers University–New Brunswick · Ron Iammartino, PhD · <a href="mailto:ri128@rutgers.edu">ri128@rutgers.edu</a></p>
+<p>Dates follow the official <a href="https://scheduling.rutgers.edu/">Rutgers academic calendar</a>. Deadlines are Wednesdays at 11:59 PM Eastern unless stated otherwise. Live Zoom session Thursdays 8:00 PM ET is optional, not graded, and recorded.</p></div></footer>
+<script>// Highlights the current week on the home-page timeline using the real
+// semester dates embedded as data attributes. Dates are compared in
+// America/New_York to match Rutgers deadlines.
+(function () {
+  var items = document.querySelectorAll('.timeline-track li[data-start]');
+  if (!items.length) return;
+  var fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' });
+  var today = fmt.format(new Date()); // YYYY-MM-DD
+  items.forEach(function (li) {
+    var s = li.getAttribute('data-start'), e = li.getAttribute('data-end');
+    if (today > e) li.classList.add('past');
+    else if (today >= s && today <= e) { li.classList.add('now'); li.setAttribute('aria-current', 'date'); }
+  });
+})();
+</script></body></html>
