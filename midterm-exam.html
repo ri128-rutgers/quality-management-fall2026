@@ -1,0 +1,611 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Midterm Exam — Quality Management 16:540:580:90</title><meta name="description" content="16:540:580:90 Quality Management — Rutgers Industrial &amp; Systems Engineering graduate course, Fall 2026, asynchronous with an optional weekly live session. Engineering economy foundations extended to complex, software-intensive, cloud, data, and machine-learning systems, with machine learning used both as a cost-estimating tool and as the object of analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>/* Palette: white page, deep slate text, Rutgers scarlet as the single accent. */
+:root {
+  --paper: #ffffff;
+  --ink: #1f2a3a;
+  --ink-soft: #5d6470;
+  --rule: #e3e6ea;
+  --wash: #f6f7f9;
+  --scarlet: #cc0033;          /* Rutgers scarlet */
+  --scarlet-deep: #99001f;
+  --measure: 68ch;
+  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 17px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; font-family: var(--font); color: var(--ink); background: var(--paper);
+  line-height: 1.55; font-variant-numeric: tabular-nums;
+}
+a { color: var(--scarlet-deep); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--scarlet); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--scarlet); outline-offset: 2px; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: .5rem 1rem; }
+.skip:focus { left: 0; z-index: 10; }
+
+.wrap { width: min(100% - 2.5rem, 1100px); margin-inline: auto; }
+
+h1, h2, h3, h4 { line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 .5em; }
+h1 { font-size: 2.2rem; margin-top: 1.2rem; }
+h2 { font-size: 1.45rem; margin-top: 2rem; }
+h3 { font-size: 1.12rem; margin-top: 1.5rem; }
+p, ul, ol { max-width: var(--measure); }
+.lede { font-size: 1.15rem; color: var(--ink-soft); }
+.muted { color: var(--ink-soft); }
+ul.plain, ol.plain { padding-left: 1.1rem; }
+
+/* header */
+.site-header { border-bottom: 1px solid var(--rule); }
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; padding: .9rem 0; }
+.brand { text-decoration: none; color: var(--ink); display: flex; flex-direction: column; }
+.brand-course { color: var(--scarlet); font-weight: 600; font-size: .95rem; }
+.brand-title { font-weight: 500; font-size: 1.05rem; }
+.site-nav { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+.site-nav a { text-decoration: none; color: var(--ink); padding: .25rem 0; border-bottom: 2px solid transparent; }
+.site-nav a[aria-current="page"], .site-nav a:hover { border-bottom-color: var(--scarlet); }
+
+/* home */
+.hero { padding: 3rem 0 2rem; border-bottom: 1px solid var(--rule); }
+.hero h1 { font-size: clamp(2rem, 4vw, 3rem); max-width: 22ch; }
+.hero .lede { max-width: 60ch; }
+.hero-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem 2rem; margin-top: 1.5rem; padding: 0; list-style: none; max-width: none; }
+.hero-facts li { border-top: 2px solid var(--ink); padding-top: .5rem; }
+.hero-facts li span { display: block; color: var(--ink-soft); font-size: .9rem; }
+
+/* semester timeline — the one bold element */
+.timeline { margin: 2.5rem 0; }
+.timeline-track {
+  display: grid; grid-template-columns: repeat(15, 1fr); gap: 3px; margin-top: .75rem;
+  list-style: none; padding: 0; max-width: none;
+}
+.timeline-track li a {
+  display: block; text-decoration: none; color: var(--ink); background: var(--wash);
+  border-top: 5px solid var(--rule); padding: .45rem .3rem .55rem; min-height: 5.2rem;
+  transition: background .15s;
+}
+.timeline-track li a:hover { background: #eceef1; }
+.timeline-track .wk { font-weight: 600; font-size: .95rem; }
+.timeline-track .dt { display: block; font-size: .78rem; color: var(--ink-soft); }
+.timeline-track .tt { display: block; font-size: .78rem; margin-top: .25rem; line-height: 1.25; }
+.timeline-track li.past a { border-top-color: var(--ink-soft); }
+.timeline-track li.now a { border-top-color: var(--scarlet); background: #fff2f5; }
+.timeline-track li.now .wk::after { content: " · now"; color: var(--scarlet); font-weight: 500; }
+.timeline-track li.recess a { background: repeating-linear-gradient(135deg, var(--wash) 0 6px, #eceef1 6px 12px); }
+.timeline-legend { color: var(--ink-soft); font-size: .9rem; margin-top: .5rem; }
+.timeline-legend i { display: inline-block; width: 1.6rem; height: 5px; vertical-align: middle; margin-right: .35rem; }
+.exam-strip { margin-top: 1rem; padding: .8rem 1rem; border-left: 4px solid var(--scarlet); background: var(--wash); max-width: none; }
+@media (max-width: 900px) { .timeline-track { grid-template-columns: repeat(5, 1fr); } }
+@media (max-width: 520px) { .timeline-track { grid-template-columns: repeat(3, 1fr); } }
+
+/* tables */
+table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 1rem 0 1.5rem; }
+th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { border-bottom: 2px solid var(--ink); font-weight: 600; }
+td.num, th.num { text-align: right; }
+.table-scroll { overflow-x: auto; }
+
+/* module pages */
+.module-head { padding-top: 1rem; }
+.module-week { color: var(--scarlet); font-weight: 600; margin: 0; }
+.calendar-note { background: var(--wash); border-left: 4px solid var(--scarlet); padding: .6rem .9rem; }
+.module-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 3rem; align-items: start; }
+.module-rail { position: sticky; top: 1rem; border-top: 3px solid var(--ink); padding-top: .5rem; font-size: .95rem; }
+.module-rail h2 { font-size: 1rem; margin-top: 1.2rem; }
+.due-list { list-style: none; padding: 0; }
+.due-list li { padding: .35rem 0; border-bottom: 1px solid var(--rule); }
+.due-date { display: inline-block; min-width: 4.2rem; color: var(--scarlet); font-weight: 600; }
+.module-pager { display: flex; justify-content: space-between; gap: 2rem; margin: 3rem 0 2rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+@media (max-width: 860px) { .module-grid { grid-template-columns: 1fr; } .module-rail { position: static; } }
+
+/* content blocks */
+.objectives { background: var(--wash); padding: 1rem 1.25rem; border-left: 4px solid var(--ink); }
+.objectives h2 { margin-top: 0; font-size: 1.1rem; }
+.callout { border: 1px solid var(--rule); border-left: 4px solid var(--scarlet); padding: .9rem 1.1rem; margin: 1.5rem 0; }
+.callout h3 { margin-top: 0; }
+pre, code { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+pre { background: var(--wash); padding: 1rem; overflow-x: auto; border-radius: 3px; }
+code { background: var(--wash); padding: .1em .3em; border-radius: 3px; }
+pre code { background: none; padding: 0; }
+blockquote { margin: 1rem 0; padding-left: 1rem; border-left: 3px solid var(--rule); color: var(--ink-soft); }
+
+.site-footer { margin-top: 4rem; border-top: 1px solid var(--rule); padding: 1.5rem 0 2.5rem; color: var(--ink-soft); font-size: .9rem; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media print { .site-nav, .module-pager, .site-footer { display: none; } .module-grid { display: block; } }
+
+/* --- dynamic layer --- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;list-style:none;padding:0;max-width:none;margin:1rem 0}
+.card{border:1px solid var(--rule);border-top:4px solid var(--rule);border-radius:4px;padding:1rem 1.1rem;background:#fff;transition:transform .12s,box-shadow .12s;display:flex;flex-direction:column;gap:.35rem}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(31,42,58,.10)}
+.card.now{border-top-color:var(--scarlet);background:#fff7f9}.card.past{opacity:.75}
+.card .wk{color:var(--scarlet);font-weight:600;font-size:.85rem}.card h3{margin:0;font-size:1.05rem;line-height:1.3}.card .dt{color:var(--ink-soft);font-size:.85rem}
+.card .due{font-size:.85rem;margin-top:.2rem}.card .acts{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:auto;padding-top:.5rem}
+.btn{display:inline-block;padding:.35rem .75rem;border-radius:3px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:.85rem;font-weight:500}
+.btn:hover{background:var(--wash)}.btn.primary{background:var(--scarlet);border-color:var(--scarlet);color:#fff}.btn.primary:hover{background:var(--scarlet-deep)}
+.actionbar{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0 1.5rem}
+.now-hero{border:1px solid var(--rule);border-left:6px solid var(--scarlet);background:var(--wash);padding:1.1rem 1.4rem;margin:1.5rem 0;border-radius:4px}
+.now-hero h2{margin:0 0 .3rem;font-size:1.3rem}.now-hero p{margin:.2rem 0}
+.pill{display:inline-block;background:var(--ink);color:#fff;font-size:.72rem;padding:.1rem .5rem;border-radius:999px;margin-right:.4rem;vertical-align:middle}
+.pill.article{background:#2f5d8a}.pill.video{background:#b3411f}.pill.reference{background:#5d6470}
+.reslist li{margin:.45rem 0}
+.timeline-track li a{min-height:5.6rem}
+table.glance td a{font-weight:500}
+.hero-actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.4rem}
+
+/* ---- midterm exam page ---- */
+.story { background: var(--wash); border-left: 4px solid var(--scarlet); padding: .9rem 1.1rem; margin: 1.2rem 0; max-width: none; }
+.story p { margin: 0; max-width: 80ch; }
+.panel { border: 1px solid var(--rule); border-radius: 8px; padding: 1rem 1.1rem; margin: 1.2rem 0; }
+.panel label { display: block; margin: .5rem 0; }
+.who { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .6rem 1rem; }
+.who label { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+.who input { display: block; width: 100%; margin-top: .2rem; }
+.clock { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin: .9rem 0 .6rem; }
+.progress { height: 8px; background: var(--wash); border-radius: 99px; overflow: hidden; }
+.progress div { height: 100%; width: 0; background: var(--scarlet); transition: width .3s; }
+.small { font-size: .88rem; }
+.toc { position: sticky; top: 0; z-index: 5; background: var(--paper); display: flex; gap: .4rem; flex-wrap: wrap; padding: .55rem 0; border-bottom: 1px solid var(--rule); }
+.toc a { text-decoration: none; color: var(--ink); background: var(--wash); border-radius: 99px; padding: .3rem .8rem; font-size: .9rem; }
+.toc a span { color: var(--ink-soft); margin-left: .3rem; }
+.toc a:hover { background: #eceef1; }
+h2 .pts, h3 .pts { font-size: .9rem; font-weight: 500; color: var(--ink-soft); margin-left: .5rem; }
+h2[id] { scroll-margin-top: 3.5rem; }
+.q { border: 1px solid var(--rule); border-radius: 8px; padding: .9rem 1.1rem 1rem; margin: 1rem 0; scroll-margin-top: 3.5rem; }
+.q.done { border-left: 4px solid #2e7d32; }
+.qh { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; margin-bottom: .3rem; }
+.qh b { font-size: 1.05rem; }
+.wk { font-size: .82rem; color: var(--ink-soft); text-align: right; }
+.q p { margin: .4rem 0; max-width: 80ch; }
+input:not([type]), input[inputmode], select, textarea {
+  font: inherit; font-size: .95rem; color: var(--ink); border: 1px solid #c9ced6; border-radius: 6px; padding: .4rem .55rem; background: #fff;
+}
+textarea { display: block; width: 100%; min-height: 5.5rem; margin-top: .6rem; resize: vertical; line-height: 1.45; }
+textarea.tall { min-height: 10rem; }
+textarea.short { min-height: 3rem; }
+textarea.code { font-family: ui-monospace, Consolas, monospace; font-size: .88rem; min-height: 6rem; background: #fbfbfc; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--scarlet); outline-offset: 1px; border-color: transparent; }
+label.num { display: inline-flex; align-items: center; gap: .4rem; margin: .4rem 1.2rem .2rem 0; font-size: .92rem; }
+label.num input { width: 9rem; text-align: right; }
+.row2, .grid3, .grid4 { display: flex; flex-wrap: wrap; gap: 0 .4rem; }
+.sort { display: grid; gap: .45rem; margin: .6rem 0; }
+.sort label { display: flex; justify-content: space-between; gap: 1rem; align-items: center; flex-wrap: wrap; background: var(--wash); padding: .45rem .7rem; border-radius: 6px; font-size: .95rem; }
+.sort select { min-width: 11rem; }
+.bot { background: #fff7f8; border: 1px solid #f2c9d2; border-radius: 12px 12px 12px 2px; padding: .6rem .9rem; margin: .6rem 0; max-width: 70ch; }
+.bot > span { display: block; font-size: .75rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--scarlet-deep); margin-bottom: .2rem; }
+.bot.long ol { margin: .3rem 0 .4rem; padding-left: 1.3rem; }
+.bot.long p { margin: .3rem 0 0; }
+table.facts { border-collapse: collapse; margin: .6rem 0 1rem; width: 100%; max-width: 900px; font-size: .93rem; }
+table.facts th { text-align: left; white-space: nowrap; padding: .45rem .8rem .45rem 0; vertical-align: top; width: 1%; }
+table.facts td { padding: .45rem 0; }
+table.facts tr + tr { border-top: 1px solid var(--rule); }
+.explorer { background: var(--wash); border-radius: 8px; padding: .8rem 1rem; margin: .7rem 0; }
+.explorer input[type=range] { width: 100%; accent-color: var(--scarlet); margin-top: .4rem; }
+.bars { display: grid; gap: .4rem; margin: .7rem 0 .3rem; }
+.bars div { display: grid; grid-template-columns: 8.5rem 1fr; align-items: center; gap: .6rem; font-size: .9rem; }
+.bars i { display: block; height: 1.25rem; border-radius: 4px; background: var(--ink-soft); transition: width .2s; position: relative; }
+.bars i::after { content: attr(data-v); position: absolute; left: calc(100% + .4rem); top: 0; font-style: normal; font-size: .82rem; white-space: nowrap; }
+.bars i.win { background: var(--scarlet); }
+.verdict { font-weight: 600; margin: .3rem 0 0; }
+.memo { overflow-x: auto; border: 1px solid #c9ced6; border-radius: 6px; padding: 1rem 1.2rem; margin: 1rem 0; background: #fffef9; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.memo-h { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; font-size: .82rem; color: var(--ink-soft); border-bottom: 1px solid var(--rule); padding-bottom: .4rem; }
+.stamp { color: #8a5a00; background: #fff1cc; border-radius: 4px; padding: 0 .4rem; font-weight: 600; }
+.memo h4 { margin: .7rem 0 .3rem; font-size: 1.05rem; }
+table.est { border-collapse: collapse; width: 100%; font-size: .88rem; margin: .5rem 0; }
+table.est th, table.est td { border-bottom: 1px solid var(--rule); padding: .35rem .4rem; text-align: left; vertical-align: top; }
+table.est td.r, table.est th.r { text-align: right; white-space: nowrap; }
+table.est tr.tot td { font-weight: 600; border-top: 2px solid var(--ink); }
+.gao { display: grid; gap: .6rem; }
+.gao .g { display: grid; grid-template-columns: 10rem 11rem 1fr; gap: .4rem .6rem; align-items: start; background: var(--wash); padding: .6rem .7rem; border-radius: 6px; }
+.gao .g b { padding-top: .35rem; }
+.gao .g .ev { display: grid; gap: .35rem; }
+.gao .g input { width: 100%; }
+label.check { display: flex; gap: .5rem; align-items: flex-start; }
+.panel label.filebtn { display: inline-block; margin: 0; position: relative; overflow: hidden; }
+.filebtn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+#sheet { display: none; }
+@media (max-width: 640px) {
+  .gao .g { grid-template-columns: 1fr; }
+  label.num { display: flex; justify-content: space-between; width: 100%; margin-right: 0; }
+  .bars div { grid-template-columns: 6.5rem 1fr; }
+}
+@media print {
+  body > *:not(main), .site-header, .site-footer { display: none !important; }
+  main article > *:not(#sheet) { display: none !important; }
+  #sheet { display: block !important; font-size: 10.5pt; }
+  #sheet h1 { font-size: 15pt; margin: 0 0 .3rem; }
+  #sheet .meta { color: #444; margin-bottom: .8rem; }
+  #sheet .it { border-top: 1px solid #ccc; padding: .35rem 0; break-inside: avoid; }
+  #sheet .it b { display: inline-block; min-width: 3.4rem; }
+  #sheet pre { white-space: pre-wrap; font-size: 9pt; margin: .2rem 0; }
+  #sheet .ans { white-space: pre-wrap; margin: .15rem 0 0; }
+  #sheet .empty { color: #b00; }
+}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="wrap header-row"><a class="brand" href="/quality-management-fall2026/index.html"><span class="brand-course">16:540:580:90</span><span class="brand-title">Quality Management: quality economics for AI-enabled systems</span></a>
+<nav class="site-nav" aria-label="Site"><a href="/quality-management-fall2026/syllabus.html">Syllabus</a><a href="/quality-management-fall2026/schedule.html">Schedule</a><a href="/quality-management-fall2026/lectures.html">Lectures</a><a href="/quality-management-fall2026/modules.html">Modules</a><a href="/quality-management-fall2026/assignments.html" aria-current="page">Assignments</a><a href="/quality-management-fall2026/announcements.html">Announcements</a><a href="/quality-management-fall2026/live.html">Live sessions</a><a href="/quality-management-fall2026/textbooks.html">Textbooks</a><a href="/quality-management-fall2026/policies.html">Policies</a><a href="https://rutgers.instructure.com/courses/414298" rel="noopener">Canvas</a></nav></div></header>
+<main id="main" class="wrap"><article class="page"><h1>Midterm: Keystone Creamery goes AI</h1>
+<p class="lede"><strong>Due Monday, November 9, 11:59 PM ET</strong> · 48 hours from when you start · Weeks 1–7 · 100 points · about 2–3 hours. The <a href="/quality-management-fall2026/midterm.html">midterm page</a> has the rules, window, and submission instructions; they all apply here.</p>
+
+<section class="story">
+  <p><strong>Keystone Creamery</strong> (fictional) runs six filling and packaging lines in Lancaster County, PA. In 2026 it is adding AI: vision inspection on every line and a sensor-based predictive-maintenance program. <strong>You are its quality and cost engineer.</strong> Every question below comes from something we did in Weeks 1–7.</p>
+</section>
+
+<section class="panel" id="start">
+  <div class="who">
+    <label>Name <input data-k="name" autocomplete="name"></label>
+    <label>NetID <input data-k="netid"></label>
+    <label>RUID <input data-k="ruid" inputmode="numeric"></label>
+  </div>
+  <div class="clock">
+    <button class="btn primary" id="startBtn" type="button">Start my 48 hours</button>
+    <span id="clockText" class="muted">Your answers save automatically in this browser.</span>
+  </div>
+  <div class="progress" aria-label="Progress"><div id="bar"></div></div>
+  <p class="muted small" id="progText">0 of 26 answers started</p>
+</section>
+
+<nav class="toc" aria-label="Exam parts">
+  <a href="#partA">A · Short answers <span>40</span></a>
+  <a href="#partB">B · Hands-on <span>35</span></a>
+  <a href="#partC">C · Grade an estimate <span>25</span></a>
+  <a href="#finish">Finish and save PDF</a>
+</nav>
+
+<!-- ============================ PART A ============================ -->
+<h2 id="partA">Part A · Short answers <span class="pts">40 points · 4 each</span></h2>
+<p class="muted">Two to four sentences each. Where a number is asked for, put it in the number box and show the one-line basis in your answer.</p>
+
+<div class="q" id="A1"><div class="qh"><b>A1</b><span class="wk">Week 1 · cost of quality</span></div>
+  <p>Sort four lines from Keystone's 2026 quality bill into the cost-of-quality buckets. Then say which one you'd spend <em>more</em> on, and which failure cost it should cut.</p>
+  <div class="sort">
+    <label>(a) Quarterly test of the vision model on a held-out defect library <select data-k="A1a"><option></option><option>Prevention</option><option>Appraisal</option><option>Internal failure</option><option>External failure</option></select></label>
+    <label>(b) Retraining annotators on a new defect-labeling guide <select data-k="A1b"><option></option><option>Prevention</option><option>Appraisal</option><option>Internal failure</option><option>External failure</option></select></label>
+    <label>(c) A retailer's chargeback for leaking cartons <select data-k="A1c"><option></option><option>Prevention</option><option>Appraisal</option><option>Internal failure</option><option>External failure</option></select></label>
+    <label>(d) Product scrapped at the end of the line <select data-k="A1d"><option></option><option>Prevention</option><option>Appraisal</option><option>Internal failure</option><option>External failure</option></select></label>
+  </div>
+  <textarea data-k="A1" placeholder="Which would you spend more on, and which failure cost should it cut? Why?"></textarea></div>
+
+<div class="q" id="A2"><div class="qh"><b>A2</b><span class="wk">Weeks 1 and 6 · economics of AI</span></div>
+  <div class="bot"><span>AI assistant</span>AI systems get cheaper to own once they succeed, because the model keeps learning.</div>
+  <p>Agree or disagree? Use what makes AI systems economically different.</p>
+  <textarea data-k="A2"></textarea></div>
+
+<div class="q" id="A3"><div class="qh"><b>A3</b><span class="wk">Week 2 · effective interest</span></div>
+  <div class="bot"><span>AI assistant</span>1.4% per month is 16.8% a year, so it beats the 17.5%-per-year financing offer.</div>
+  <p>Check it. Which offer is actually cheaper, and what did the assistant do wrong?</p>
+  <label class="num">Effective annual rate of the monthly offer (%) <input data-k="A3n" inputmode="decimal"></label>
+  <textarea data-k="A3"></textarea></div>
+
+<div class="q" id="A4"><div class="qh"><b>A4</b><span class="wk">Week 2 · discount rate</span></div>
+  <p>Finance raised Keystone's discount rate from 10% to 25% "because the AI model will be obsolete in three years." What should they do instead, and why does the higher rate work against prevention spending?</p>
+  <textarea data-k="A4"></textarea></div>
+
+<div class="q" id="A5"><div class="qh"><b>A5</b><span class="wk">Week 3 · comparing alternatives</span></div>
+  <p>Two inspection upgrades, 12% MARR, choose one: <strong>enhanced sampling</strong> (cost $80k, IRR 38%, PW $95k) or <strong>AI vision</strong> (cost $410k, IRR 21%, PW $210k).</p>
+  <div class="bot"><span>AI assistant</span>Choose enhanced sampling. It has the higher return.</div>
+  <p>Is the assistant right? Why or why not?</p>
+  <textarea data-k="A5"></textarea></div>
+
+<div class="q" id="A6"><div class="qh"><b>A6</b><span class="wk">Week 3 · non-simple cash flows</span></div>
+  <p>Net cash flows ($k, years 0–5): <code>−600, +320, +340, −520, +360, +380</code>. Year 3 is a model rebuild after a product change. How many sign changes are there, and why does that matter for IRR? Use <code>tvm.py</code> for the PW at 10%.</p>
+  <label class="num">PW at 10% ($k) <input data-k="A6n" inputmode="decimal"></label>
+  <textarea data-k="A6"></textarea></div>
+
+<div class="q" id="A7"><div class="qh"><b>A7</b><span class="wk">Week 4 · inflation and escalation</span></div>
+  <p>An estimate escalates every cost line at 2.5% general inflation. Name two cost lines in an AI system that should move differently, and in which direction.</p>
+  <textarea data-k="A7"></textarea></div>
+
+<div class="q" id="A8"><div class="qh"><b>A8</b><span class="wk">Week 4 · Taguchi loss</span></div>
+  <p>Keystone's AI-controlled filler targets 500 mL (tolerance ±4 mL). The loss at either limit is $0.12 per carton. The mean is running at 502.5 mL, which is "in spec." What does that cost per carton, and per year on 30 million cartons?</p>
+  <div class="row2">
+    <label class="num">Loss per carton ($) <input data-k="A8a" inputmode="decimal"></label>
+    <label class="num">Loss per year ($) <input data-k="A8b" inputmode="decimal"></label>
+  </div>
+  <textarea data-k="A8"></textarea></div>
+
+<div class="q" id="A9"><div class="qh"><b>A9</b><span class="wk">Week 5 · estimating</span></div>
+  <p>A vendor's CER for Keystone's 1,150-sensor sister plant reports R² = 0.93. Its cross-validated error is twice its in-sample error, and it was fit on plants with 40–600 sensors. Give two reasons not to trust its number.</p>
+  <textarea data-k="A9"></textarea></div>
+
+<div class="q" id="A10"><div class="qh"><b>A10</b><span class="wk">Week 7 · simulation</span></div>
+  <p>An S-curve puts a $3.2M AI budget at the 38th percentile, with P80 = $4.1M. What does the 38th percentile mean for the sponsor? What reserve would fund the program at P80?</p>
+  <label class="num">Reserve to P80 ($M) <input data-k="A10n" inputmode="decimal"></label>
+  <textarea data-k="A10"></textarea></div>
+
+<!-- ============================ PART B ============================ -->
+<h2 id="partB">Part B · Hands-on <span class="pts">35 points</span></h2>
+<p>Open the notebook and run all cells. Inputs are filled in; you change only the cells marked <strong>TRY IT</strong> and <strong>YOUR CODE</strong>. Copy your results here.</p>
+<p><a class="btn primary" href="https://colab.research.google.com/github/ri128-rutgers/quality-management-fall2026/blob/main/midterm_partB.ipynb" rel="noopener">Open the notebook in Colab</a> <a class="btn" href="https://github.com/ri128-rutgers/quality-management-fall2026/blob/main/midterm_partB.ipynb" rel="noopener">View on GitHub</a></p>
+
+<h3>B1 · Where should the AI models run? <span class="pts">17 points</span></h3>
+<table class="facts"><tbody>
+  <tr><th>Own edge servers</th><td>$480,000 now; 5-year MACRS; $130,000 a year to run (power, support, admin)</td></tr>
+  <tr><th>Cloud contract</th><td>$25,000 setup now (expensed); $275,000 in year 1, falling 7% a year; 3-year term renewed once for years 4–6</td></tr>
+  <tr><th>Ground rules</th><td>6 years · 25% tax · 9% after-tax MARR · profitable firm, so deductions save tax the year they occur</td></tr>
+</tbody></table>
+
+<div class="q" id="B1a"><div class="qh"><b>B1(a)</b><span class="wk">Weeks 2–4 · 4 points</span></div>
+  <p>From the notebook, report the four present worths. Which option is cheaper before tax, and which after tax?</p>
+  <div class="grid4">
+    <label class="num">Own, before tax ($) <input data-k="B1a1" inputmode="decimal"></label>
+    <label class="num">Cloud, before tax ($) <input data-k="B1a2" inputmode="decimal"></label>
+    <label class="num">Own, after tax ($) <input data-k="B1a3" inputmode="decimal"></label>
+    <label class="num">Cloud, after tax ($) <input data-k="B1a4" inputmode="decimal"></label>
+  </div>
+  <div class="row2">
+    <label>Cheaper before tax <select data-k="B1a5"><option></option><option>Own</option><option>Cloud</option></select></label>
+    <label>Cheaper after tax <select data-k="B1a6"><option></option><option>Own</option><option>Cloud</option></select></label>
+  </div></div>
+
+<div class="q" id="B1b"><div class="qh"><b>B1(b)</b><span class="wk">Week 4 · 4 points</span></div>
+  <p>In two or three sentences: why does the answer flip after tax? Point to a column in the notebook's tables.</p>
+  <textarea data-k="B1b"></textarea></div>
+
+<div class="q" id="B1c"><div class="qh"><b>B1(c)</b><span class="wk">Weeks 3–4 · 4 points · TRY IT</span></div>
+  <p>The renewal price for years 4–6 isn't locked. Drag the slider (or change <code>renewal_change</code> in the notebook) to find where the decision flips. What renewal increase makes owning cheaper, and what contract term would you negotiate?</p>
+  <div class="explorer">
+    <label>Renewal price vs. expected path: <strong id="rcOut">+0%</strong>
+      <input type="range" id="rc" min="-10" max="15" step="0.5" value="0"></label>
+    <div class="bars"><div><span>Own servers</span><i id="barOwn"></i></div><div><span>Cloud contract</span><i id="barCloud"></i></div></div>
+    <p id="rcVerdict" class="verdict"></p>
+    <p class="muted small">Bars show after-tax present cost: shorter is cheaper. Same math as the notebook.</p>
+  </div>
+  <label class="num">Flip point (% above expected renewal price) <input data-k="B1cn" inputmode="decimal"></label>
+  <textarea data-k="B1c" placeholder="Flip point, what it means, and the contract term you'd negotiate"></textarea></div>
+
+<div class="q" id="B1d"><div class="qh"><b>B1(d)</b><span class="wk">Weeks 2–4 · 5 points · audit the AI</span></div>
+  <p>A colleague asked an AI assistant for this comparison. Audit it against the facts above and your notebook.</p>
+  <div class="bot long"><span>AI assistant's draft</span>
+    <ol>
+      <li>Depreciate the servers straight-line: $96,000 a year for five years.</li>
+      <li>The $25,000 cloud setup fee is paid at year 0, so it has no tax effect.</li>
+      <li>Cloud costs $275,000 a year for six years.</li>
+      <li>Discount everything at Keystone's usual 12% hurdle rate.</li>
+    </ol>
+    <p>After-tax present cost: <strong>Own $794,348</strong>, <strong>Cloud $872,978</strong>. <strong>Recommendation: own the servers.</strong></p>
+  </div>
+  <p>Find at least three errors, say which way each pushes the answer, and say whether fixing them changes the recommendation.</p>
+  <textarea data-k="B1d" class="tall"></textarea></div>
+
+<h3>B2 · What will predictive maintenance cost? <span class="pts">18 points</span></h3>
+<table class="facts"><tbody>
+  <tr><th>The program</th><td>150 sensors · 2 enterprise integrations (CMMS, historian) · 2 ML models · data readiness 3 · built by a systems integrator</td></tr>
+  <tr><th>Cost model</th><td>8 years · constant 2026 dollars · 8% real rate · effort from the Case 2 CER on the same 60-program dataset · labor, cloud, and sustainment as ranges · effort and labor rate correlated (0.5) · 20,000 iterations</td></tr>
+</tbody></table>
+
+<div class="q" id="B2a"><div class="qh"><b>B2(a)</b><span class="wk">Week 5 · 4 points</span></div>
+  <p>The notebook fits the two Case 2 CERs. Which do you trust for Keystone, and why? Does this match the Week 5 claim that machine-learned CERs win?</p>
+  <div class="row2">
+    <label class="num">OLS cross-validated error (%) <input data-k="B2a1" inputmode="decimal"></label>
+    <label class="num">Boosted cross-validated error (%) <input data-k="B2a2" inputmode="decimal"></label>
+  </div>
+  <label>I'd use <select data-k="B2a3"><option></option><option>OLS (log-linear)</option><option>Gradient-boosted</option></select></label>
+  <textarea data-k="B2a"></textarea></div>
+
+<div class="q" id="B2b"><div class="qh"><b>B2(b)</b><span class="wk">Week 7 · 4 points</span></div>
+  <p>Read the <em>correlated</em> S-curve. What should the CFO budget, and why?</p>
+  <div class="grid4">
+    <label class="num">Point estimate ($) <input data-k="B2b1" inputmode="decimal"></label>
+    <label class="num">P50 ($) <input data-k="B2b2" inputmode="decimal"></label>
+    <label class="num">P80 ($) <input data-k="B2b3" inputmode="decimal"></label>
+    <label class="num">Chance the point estimate holds (%) <input data-k="B2b4" inputmode="decimal"></label>
+  </div>
+  <textarea data-k="B2b"></textarea></div>
+
+<div class="q" id="B2c"><div class="qh"><b>B2(c)</b><span class="wk">Week 7 · 3 points</span></div>
+  <p>Compare P80 with and without the effort–labor-rate correlation. Why does correlation move it?</p>
+  <label class="num">P80, independent run ($) <input data-k="B2c1" inputmode="decimal"></label>
+  <textarea data-k="B2c"></textarea></div>
+
+<div class="q" id="B2d"><div class="qh"><b>B2(d)</b><span class="wk">Week 7 · 5 points · YOUR CODE</span></div>
+  <p>There's a 25% chance Keystone's historian data has to be cleaned up again, costing $300,000. Write <code>risk_event()</code> in the notebook, run it, and check it. Paste your function here.</p>
+  <textarea data-k="B2d1" class="code" spellcheck="false" placeholder="def risk_event(n, rng):&#10;    ..."></textarea>
+  <div class="grid3">
+    <label class="num">Hit rate printed (%) <input data-k="B2d2" inputmode="decimal"></label>
+    <label class="num">New P80 ($) <input data-k="B2d3" inputmode="decimal"></label>
+    <label class="num">New chance point holds (%) <input data-k="B2d4" inputmode="decimal"></label>
+  </div>
+  <label>This is <select data-k="B2d5"><option></option><option>uncertainty</option><option>risk</option></select></label>
+  <textarea data-k="B2d" placeholder="How you checked the function, and why it's uncertainty or risk"></textarea></div>
+
+<div class="q" id="B2e"><div class="qh"><b>B2(e)</b><span class="wk">Week 7 · 2 points</span></div>
+  <p>From the tornado: what drives the spread most, and what one piece of data would you collect first?</p>
+  <textarea data-k="B2e"></textarea></div>
+
+<!-- ============================ PART C ============================ -->
+<h2 id="partC">Part C · Grade the vendor's estimate <span class="pts">25 points</span></h2>
+<p>A vision vendor sent Keystone this estimate. Grade it the way a GAO cost reviewer would (Week 5: comprehensive, well-documented, accurate, credible). You don't need to rebuild it.</p>
+
+<div class="memo">
+  <div class="memo-h"><span>VisionLine Systems (fictional) · Sales Engineering</span><span class="stamp">Drafted by our AI estimating agent in 10 minutes</span></div>
+  <h4>Estimate: AI vision inspection for Keystone's six lines</h4>
+  <p class="small"><strong>Ground rules:</strong> 2-year horizon. Constant 2026 dollars, escalated 3% a year. Discounted at 10%. <strong>Confidence: High.</strong></p>
+  <table class="est"><thead><tr><th>#</th><th>Cost element</th><th>Method</th><th>Year 0</th><th>Year 1</th><th>Year 2</th></tr></thead><tbody>
+  <tr><td>1</td><td>Cameras and edge units: 6 lines × 4 cameras × $3,800</td><td>Vendor quote</td><td class="r">$91,200</td><td class="r">—</td><td class="r">—</td></tr>
+<tr><td>2</td><td>Integration with MES and historian: hours = 410 × cameras^0.62, × $145/hr</td><td>CER</td><td class="r">$426,500</td><td class="r">—</td><td class="r">—</td></tr>
+<tr><td>3</td><td>Vision model development</td><td>Industry benchmark</td><td class="r">$120,000</td><td class="r">—</td><td class="r">—</td></tr>
+<tr><td>4</td><td>Software licenses, $9,000 per line per year</td><td>Price list</td><td class="r">—</td><td class="r">$54,000</td><td class="r">$55,620</td></tr>
+<tr><td>5</td><td>Cloud inference, $1,500 per month</td><td>Price list</td><td class="r">—</td><td class="r">$18,000</td><td class="r">$18,540</td></tr>
+<tr class="tot"><td></td><td>Total</td><td></td><td class="r">$587,700</td><td class="r">$72,000</td><td class="r">$74,160</td></tr>
+  </tbody></table>
+  <p class="small"><strong>Present worth at 10%:</strong> $714,444. <strong>Benefit:</strong> $400,000 a year (our case studies). <strong>Recommendation:</strong> approve. <strong>Sources:</strong> vendor quotes; industry benchmarks. The integration CER was fit on our past projects with 2 to 8 cameras.</p>
+</div>
+
+<div class="q" id="C1"><div class="qh"><b>C1</b><span class="wk">16 points · 4 per characteristic</span></div>
+  <p>Rate each characteristic and give two specific pieces of evidence from the estimate.</p>
+  <div class="gao">
+    <div class="g"><b>Comprehensive</b><select data-k="C1_comp_r" aria-label="Comprehensive rating"><option></option><option>Met</option><option>Partially met</option><option>Not met</option></select><div class="ev"><input data-k="C1_comp_1" placeholder="Evidence 1" aria-label="Comprehensive evidence 1"><input data-k="C1_comp_2" placeholder="Evidence 2" aria-label="Comprehensive evidence 2"></div></div><div class="g"><b>Well-documented</b><select data-k="C1_doc_r" aria-label="Well-documented rating"><option></option><option>Met</option><option>Partially met</option><option>Not met</option></select><div class="ev"><input data-k="C1_doc_1" placeholder="Evidence 1" aria-label="Well-documented evidence 1"><input data-k="C1_doc_2" placeholder="Evidence 2" aria-label="Well-documented evidence 2"></div></div><div class="g"><b>Accurate</b><select data-k="C1_acc_r" aria-label="Accurate rating"><option></option><option>Met</option><option>Partially met</option><option>Not met</option></select><div class="ev"><input data-k="C1_acc_1" placeholder="Evidence 1" aria-label="Accurate evidence 1"><input data-k="C1_acc_2" placeholder="Evidence 2" aria-label="Accurate evidence 2"></div></div><div class="g"><b>Credible</b><select data-k="C1_cred_r" aria-label="Credible rating"><option></option><option>Met</option><option>Partially met</option><option>Not met</option></select><div class="ev"><input data-k="C1_cred_1" placeholder="Evidence 1" aria-label="Credible evidence 1"><input data-k="C1_cred_2" placeholder="Evidence 2" aria-label="Credible evidence 2"></div></div>
+  </div></div>
+
+<div class="q" id="C2"><div class="qh"><b>C2</b><span class="wk">4 points</span></div>
+  <p>Which two defects matter most to the decision? Put a dollar or percent figure on at least one.</p>
+  <textarea data-k="C2"></textarea></div>
+
+<div class="q" id="C3"><div class="qh"><b>C3</b><span class="wk">5 points · half a page</span></div>
+  <p>Write to Keystone's VP of Operations: approve, reject, or approve with conditions? List exactly what the revised estimate must include.</p>
+  <textarea data-k="C3" class="tall"></textarea>
+  <p class="muted small"><span id="c3words">0</span> words · aim for 150–250</p></div>
+
+<!-- ============================ FINISH ============================ -->
+<h2 id="finish">Finish</h2>
+<div class="panel">
+  <label class="check"><input type="checkbox" data-k="aiNone"> I used no AI assistant on this exam.</label>
+  <label>AI used for code syntax only (tool and what you asked):<textarea data-k="aiUse" class="short"></textarea></label>
+  <label class="check"><input type="checkbox" data-k="honor"> I worked on my own within my 48-hour window and the Rutgers Academic Integrity Policy applies to this work.</label>
+  <p><button class="btn primary" id="printBtn" type="button">Review and save as PDF</button>
+     <button class="btn" id="saveBtn" type="button">Download a backup</button>
+     <label class="btn filebtn">Restore a backup<input type="file" id="loadFile" accept="application/json"></label></p>
+  <p class="muted small">Submit in Canvas: the PDF from "Review and save as PDF" plus your notebook (<code>.ipynb</code>). Answers stay in this browser only; download a backup if you'll switch devices.</p>
+</div>
+
+<div id="sheet" aria-hidden="true"></div>
+</article></main>
+<footer class="site-footer"><div class="wrap"><p>16:540:580:90 · Fall 2026 · Industrial and Systems Engineering, School of Engineering / School of Graduate Studies, Rutgers University–New Brunswick · Ron Iammartino, PhD · <a href="mailto:ri128@rutgers.edu">ri128@rutgers.edu</a></p>
+<p>Dates follow the official <a href="https://scheduling.rutgers.edu/">Rutgers academic calendar</a>. Deadlines are Wednesdays at 11:59 PM Eastern unless stated otherwise. Live Zoom session Thursdays 8:00 PM ET is optional, not graded, and recorded.</p></div></footer>
+<script>// Highlights the current week on the home-page timeline using the real
+// semester dates embedded as data attributes. Dates are compared in
+// America/New_York to match Rutgers deadlines.
+(function () {
+  var items = document.querySelectorAll('.timeline-track li[data-start]');
+  if (!items.length) return;
+  var fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' });
+  var today = fmt.format(new Date()); // YYYY-MM-DD
+  items.forEach(function (li) {
+    var s = li.getAttribute('data-start'), e = li.getAttribute('data-end');
+    if (today > e) li.classList.add('past');
+    else if (today >= s && today <= e) { li.classList.add('now'); li.setAttribute('aria-current', 'date'); }
+  });
+})();
+</script><script>// Midterm page: autosave, progress, 48-hour clock, B1 explorer, answer-sheet export.
+// Answers live only in this browser (localStorage); nothing is sent anywhere.
+(function () {
+  'use strict';
+  var STORE = 'qm580-midterm-fall2026';
+  var state = {};
+  function load() { try { state = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { state = {}; } }
+  function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} }
+  load();
+
+  var fields = Array.prototype.slice.call(document.querySelectorAll('[data-k]'));
+  fields.forEach(function (el) {
+    var k = el.getAttribute('data-k');
+    if (el.type === 'checkbox') el.checked = !!state[k]; else if (state[k] != null) el.value = state[k];
+    el.addEventListener(el.tagName === 'SELECT' || el.type === 'checkbox' ? 'change' : 'input', function () {
+      state[k] = el.type === 'checkbox' ? el.checked : el.value; save(); progress(); words();
+    });
+  });
+
+  // ---- items: label, points, keys (for progress and the answer sheet)
+  var GAO = [['comp', 'Comprehensive'], ['doc', 'Well-documented'], ['acc', 'Accurate'], ['cred', 'Credible']];
+  var ITEMS = [
+    ['A1', 4, [['A1a', '(a) model test'], ['A1b', '(b) annotator training'], ['A1c', '(c) chargeback'], ['A1d', '(d) scrap'], ['A1', '']]],
+    ['A2', 4, [['A2', '']]], ['A3', 4, [['A3n', 'Effective rate (%)'], ['A3', '']]], ['A4', 4, [['A4', '']]],
+    ['A5', 4, [['A5', '']]], ['A6', 4, [['A6n', 'PW at 10% ($k)'], ['A6', '']]], ['A7', 4, [['A7', '']]],
+    ['A8', 4, [['A8a', 'Loss per carton ($)'], ['A8b', 'Loss per year ($)'], ['A8', '']]], ['A9', 4, [['A9', '']]],
+    ['A10', 4, [['A10n', 'Reserve ($M)'], ['A10', '']]],
+    ['B1(a)', 4, [['B1a1', 'Own PW before tax'], ['B1a2', 'Cloud PW before tax'], ['B1a3', 'Own PW after tax'], ['B1a4', 'Cloud PW after tax'], ['B1a5', 'Cheaper before tax'], ['B1a6', 'Cheaper after tax']]],
+    ['B1(b)', 4, [['B1b', '']]], ['B1(c)', 4, [['B1cn', 'Flip point (%)'], ['B1c', '']]], ['B1(d)', 5, [['B1d', '']]],
+    ['B2(a)', 4, [['B2a1', 'OLS CV error (%)'], ['B2a2', 'Boosted CV error (%)'], ['B2a3', 'Choice'], ['B2a', '']]],
+    ['B2(b)', 4, [['B2b1', 'Point estimate'], ['B2b2', 'P50'], ['B2b3', 'P80'], ['B2b4', 'Chance point holds (%)'], ['B2b', '']]],
+    ['B2(c)', 3, [['B2c1', 'P80 independent'], ['B2c', '']]],
+    ['B2(d)', 5, [['B2d1', 'Function'], ['B2d2', 'Hit rate (%)'], ['B2d3', 'New P80'], ['B2d4', 'New chance point holds (%)'], ['B2d5', 'Uncertainty or risk'], ['B2d', '']]],
+    ['B2(e)', 2, [['B2e', '']]]
+  ].concat(GAO.map(function (g) { return ['C1 ' + g[1], 4, [['C1_' + g[0] + '_r', 'Rating'], ['C1_' + g[0] + '_1', 'Evidence 1'], ['C1_' + g[0] + '_2', 'Evidence 2']]]; }))
+   .concat([['C2', 4, [['C2', '']]], ['C3', 5, [['C3', '']]]]);
+
+  function filled(k) { var v = state[k]; return v != null && String(v).trim() !== '' && v !== false; }
+  function progress() {
+    var n = ITEMS.filter(function (it) { return it[2].some(function (f) { return filled(f[0]); }); }).length;
+    var bar = document.getElementById('bar'); if (bar) bar.style.width = (100 * n / ITEMS.length) + '%';
+    var t = document.getElementById('progText'); if (t) t.textContent = n + ' of ' + ITEMS.length + ' answers started';
+    document.querySelectorAll('.q').forEach(function (q) {
+      var ks = Array.prototype.map.call(q.querySelectorAll('[data-k]'), function (e) { return e.getAttribute('data-k'); });
+      q.classList.toggle('done', ks.length > 0 && ks.every(filled));
+    });
+  }
+  function words() {
+    var w = (state.C3 || '').trim().split(/\s+/).filter(Boolean).length;
+    var o = document.getElementById('c3words'); if (o) o.textContent = w;
+  }
+
+  // ---- 48-hour clock (honor system; Canvas logs are authoritative)
+  var startBtn = document.getElementById('startBtn'), clockText = document.getElementById('clockText');
+  function fmt(d) { return d.toLocaleString('en-US', { timeZone: 'America/New_York', weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) + ' ET'; }
+  function tick() {
+    if (!state.start) return;
+    var left = state.start + 48 * 3600e3 - Date.now();
+    startBtn.style.display = 'none';
+    clockText.textContent = 'Started ' + fmt(new Date(state.start)) + ' · ' +
+      (left > 0 ? Math.floor(left / 3600e3) + ' h ' + Math.floor(left % 3600e3 / 60e3) + ' m left in your 48 hours' : 'your 48 hours have ended');
+  }
+  startBtn.addEventListener('click', function () { if (!state.start) { state.start = Date.now(); save(); } tick(); });
+  tick(); setInterval(tick, 30e3);
+
+  // ---- B1 explorer: identical math to the notebook
+  var MACRS = [0.20, 0.32, 0.192, 0.1152, 0.1152, 0.0576], TAX = 0.25, I = 0.09;
+  function pw(cf) { return cf.reduce(function (s, c, t) { return s + c / Math.pow(1 + I, t); }, 0); }
+  function ownAT() {
+    var cf = [-480000];
+    for (var y = 1; y <= 6; y++) { var b = -130000, d = 480000 * MACRS[y - 1]; cf.push(b - TAX * (b - d)); }
+    return pw(cf);
+  }
+  function cloudAT(rc) {
+    var cf = [-25000 * (1 - TAX)];
+    for (var y = 1; y <= 6; y++) cf.push(-275000 * Math.pow(0.93, y - 1) * (y >= 4 ? 1 + rc : 1) * (1 - TAX));
+    return pw(cf);
+  }
+  var OWN = ownAT(), rc = document.getElementById('rc');
+  function money(x) { return '$' + Math.round(x).toLocaleString('en-US'); }
+  function explore() {
+    var v = parseFloat(rc.value) / 100, c = -cloudAT(v), o = -OWN, max = 1000000;
+    document.getElementById('rcOut').textContent = (v >= 0 ? '+' : '') + (v * 100).toFixed(1) + '%';
+    var bo = document.getElementById('barOwn'), bc = document.getElementById('barCloud');
+    bo.style.width = (80 * o / max) + '%'; bc.style.width = (80 * c / max) + '%';
+    bo.setAttribute('data-v', money(o)); bc.setAttribute('data-v', money(c));
+    bo.classList.toggle('win', o < c); bc.classList.toggle('win', c <= o);
+    document.getElementById('rcVerdict').textContent = (c <= o ? 'Cloud' : 'Owning') + ' is cheaper after tax by ' + money(Math.abs(c - o)) + '.';
+  }
+  if (rc) { rc.addEventListener('input', explore); explore(); }
+
+  // ---- answer sheet, print, backup
+  function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); }
+  function sheet() {
+    var h = '<h1>16:540:580:90 Midterm answers · Keystone Creamery</h1><div class="meta">' +
+      esc(state.name || '(name)') + ' · NetID ' + esc(state.netid || '—') + ' · RUID ' + esc(state.ruid || '—') +
+      '<br>Started: ' + (state.start ? fmt(new Date(state.start)) : 'not recorded') + ' · Saved: ' + fmt(new Date()) + '</div>';
+    ITEMS.forEach(function (it) {
+      h += '<div class="it"><b>' + esc(it[0]) + '</b> (' + it[1] + ' pts)';
+      it[2].forEach(function (f) {
+        var v = state[f[0]], has = filled(f[0]);
+        var body = !has ? '<span class="empty">no answer</span>' : (f[0] === 'B2d1' ? '<pre>' + esc(v) + '</pre>' : esc(v));
+        h += f[1] ? '<div class="ans">' + esc(f[1]) + ': ' + body + '</div>' : '<div class="ans">' + body + '</div>';
+      });
+      h += '</div>';
+    });
+    h += '<div class="it"><b>AI use</b> ' + (state.aiNone ? 'None.' : esc(state.aiUse || 'not stated')) + '</div>';
+    h += '<div class="it"><b>Integrity</b> ' + (state.honor ? 'Statement affirmed.' : '<span class="empty">not affirmed</span>') + '</div>';
+    document.getElementById('sheet').innerHTML = h;
+  }
+  document.getElementById('printBtn').addEventListener('click', function () {
+    if (!state.honor && !confirm('You have not affirmed the integrity statement. Print anyway?')) return;
+    sheet(); window.print();
+  });
+  window.addEventListener('beforeprint', sheet);
+  document.getElementById('saveBtn').addEventListener('click', function () {
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(state, null, 1)], { type: 'application/json' }));
+    a.download = 'midterm-backup-' + (state.netid || 'answers') + '.json'; a.click();
+  });
+  document.getElementById('loadFile').addEventListener('change', function (e) {
+    var f = e.target.files[0]; if (!f) return;
+    f.text().then(function (t) {
+      try { state = JSON.parse(t); save(); location.reload(); } catch (err) { alert('That file is not a midterm backup.'); }
+    });
+  });
+  progress(); words();
+})();
+</script></body></html>
